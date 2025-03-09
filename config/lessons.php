@@ -10,4 +10,5 @@ return [
         'is_numerator' => false,
     ],
     'switch_to_next_date_since_day' => 6,
+    'timezone' => 'Europe/Kyiv',
 ];
