@@ -61,8 +61,10 @@ final class GetScheduleCommand extends Command
                 );
             });
 
+        $text = $this->escapeCharactersService->handle($lessons);
+
         $this->replyWithMessage([
-            'text' => $this->escapeCharactersService->handle($lessons),
+            'text' => empty($text) ? 'На цей період не виявлено жодних пар\\. Відпочивай\\!' : $text,
             'parse_mode' => 'MarkdownV2',
         ]);
     }
