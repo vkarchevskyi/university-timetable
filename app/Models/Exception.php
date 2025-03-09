@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\LessonOrder;
+use Database\Factories\ExceptionFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,6 +30,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class Exception extends Model
 {
+    /** @use HasFactory<ExceptionFactory> */
+    use HasFactory;
+
     protected $fillable = [
         'datetime',
         'name',
