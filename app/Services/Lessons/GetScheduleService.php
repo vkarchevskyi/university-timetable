@@ -63,7 +63,7 @@ final readonly class GetScheduleService
                     true
                 );
 
-                if (!$lessonWithException) {
+                if (false === $lessonWithException) {
                     $specificDayLessons->add($this->createLessonValueObject($exception));
                     continue;
                 }
