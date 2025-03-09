@@ -23,6 +23,11 @@ final class ExceptionSeeder extends Seeder
             [
                 'date' => '2025-03-13',
                 'name' => 'Основи 3D моделювання',
+                'order' => 1,
+            ],
+            [
+                'date' => '2025-03-13',
+                'name' => 'Основи 3D моделювання',
                 'order' => 4,
             ],
         ];
