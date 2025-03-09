@@ -22,8 +22,8 @@ final readonly class GetScheduleService
     public function handle(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
     {
         $exceptions = Exception::query()
-            ->whereBetween('datetime', [$startDate->utc(), $endDate->utc()])
-            ->get(['id', 'datetime', 'name']);
+            ->whereBetween('date', [$startDate->utc(), $endDate->utc()])
+            ->get(['id', 'date', 'name', 'order']);
 
         /** @var Collection<int, Collection<int, Lesson>> $lessons */
         $lessons = Lesson::query()
@@ -31,7 +31,7 @@ final readonly class GetScheduleService
             ->groupBy(fn (Lesson $lesson): int => $lesson->day_of_week->value);
 
         $schedule = new Collection();
-        $currentDate = $startDate;
+        $currentDate = $startDate->startOfDay();
 
         while ($currentDate->lte($endDate)) {
             /** @var Collection<int, LessonValueObject> $specificDayLessons */
@@ -51,11 +51,15 @@ final readonly class GetScheduleService
             );
 
             /** @var Collection<int, Exception> $specificDayExceptions */
-            $specificDayExceptions = $exceptions->whereBetween('datetime', [$currentDate, $currentDate->endOfDay()]);
+            $specificDayExceptions = $exceptions->whereBetween('date', [$currentDate, $currentDate->endOfDay()]);
 
             foreach ($specificDayExceptions as $exception) {
                 $lessonWithException = $specificDayLessons->search(
-                    fn (LessonValueObject $lesson): bool => $lesson->datetime->equalTo($exception->datetime),
+                    fn (LessonValueObject $lesson): bool => $lesson->datetime->equalTo(
+                        $exception->date
+                            ->setTimezone($lesson->datetime->timezone)
+                            ->setTimeFromTimeString($exception->order->getLessonStart())
+                    ),
                     true
                 );
 
@@ -67,11 +71,16 @@ final readonly class GetScheduleService
                 if (empty($exception->name)) {
                     $specificDayLessons->forget($lessonWithException);
                 } else {
-                    $specificDayExceptions->put($lessonWithException, $this->createLessonValueObject($exception));
+                    $specificDayLessons->put($lessonWithException, $this->createLessonValueObject($exception));
                 }
             }
 
-            $schedule->put($currentDate->format('Y-m-d'), $specificDayLessons);
+            $schedule->put(
+                $currentDate->format('Y-m-d'),
+                $specificDayLessons->sort(
+                    fn (LessonValueObject $l1, LessonValueObject $l2): int => $l1->order->value <=> $l2->order->value
+                ),
+            );
             $currentDate = $currentDate->addDay();
         }
 
