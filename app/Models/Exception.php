@@ -34,13 +34,13 @@ final class Exception extends Model
     use HasFactory;
 
     protected $fillable = [
-        'datetime',
+        'date',
         'name',
         'order'
     ];
 
     protected $casts = [
-        'datetime' => 'immutable_datetime',
+        'date' => 'immutable_datetime',
         'order' => LessonOrder::class,
     ];
 }
