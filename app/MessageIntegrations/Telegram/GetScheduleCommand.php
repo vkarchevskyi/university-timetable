@@ -33,6 +33,7 @@ final class GetScheduleCommand extends Command
         $startDate = $this->currentDateService->handle();
 
         $lessons = $this->getScheduleService->handle($startDate->toImmutable(), $startDate->endOfWeek()->toImmutable())
+            ->filter(fn (Collection $lessons): bool => $lessons->isNotEmpty())
             ->map(
                 fn (Collection $lessons): string => $lessons
                     ->map(
