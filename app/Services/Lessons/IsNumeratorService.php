@@ -27,6 +27,6 @@ final readonly class IsNumeratorService
             return $this->isNumerator;
         }
 
-        return ! $this->isNumerator;
+        return !$this->isNumerator;
     }
 }
