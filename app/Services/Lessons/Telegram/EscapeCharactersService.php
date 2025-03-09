@@ -14,6 +14,7 @@ final class EscapeCharactersService
             ->replace('(', '\\(')
             ->replace(')', '\\)')
             ->replace('.', '\\.')
+            ->replace('-', '\\-')
             ->toString();
     }
 }
