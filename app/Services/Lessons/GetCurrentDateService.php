@@ -13,7 +13,8 @@ final readonly class GetCurrentDateService
     public function __construct(
         #[Config('lessons.switch_to_next_date_since_day')] private int $switchToNextWeekSinceDay,
         #[Config('lessons.timezone')] private string $timezone,
-    ) {}
+    ) {
+    }
 
     public function handle(): CarbonInterface
     {

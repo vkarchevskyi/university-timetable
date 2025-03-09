@@ -15,7 +15,8 @@ final readonly class IsNumeratorService
         #[Config('lessons.semester_start.month')] private int $month,
         #[Config('lessons.semester_start.day')] private int $day,
         #[Config('lessons.semester_start.is_numerator')] private bool $isNumerator,
-    ) {}
+    ) {
+    }
 
     public function handle(CarbonInterface $datetime): bool
     {
