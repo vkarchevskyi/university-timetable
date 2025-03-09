@@ -42,8 +42,8 @@ return [
              */
             'allowed_updates' => null,
             'commands' => [
-                \App\MessageIntegrations\Telegram\StartCommand::class,
-                \App\MessageIntegrations\Telegram\GetScheduleCommand::class,
+                App\MessageIntegrations\Telegram\StartCommand::class,
+                App\MessageIntegrations\Telegram\GetScheduleCommand::class,
             ],
         ],
 
