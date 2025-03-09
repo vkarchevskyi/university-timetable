@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\LessonOrder;
 use Database\Factories\LessonFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property int $day_of_week
- * @property int $order
+ * @property LessonOrder $order
  * @property bool|null $is_numerator
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
@@ -45,5 +46,6 @@ final class Lesson extends Model
 
     protected $casts = [
         'is_numerator' => 'boolean',
+        'order' => LessonOrder::class,
     ];
 }

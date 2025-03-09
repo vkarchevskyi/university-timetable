@@ -10,8 +10,6 @@ final class FormatOrderTimeService
 {
     public function handle(LessonOrder $order): string
     {
-        $timePeriod = $order->getTimePeriod();
-
-        return "$order->value. *{$timePeriod['start']}* - *{$timePeriod['end']}*";
+        return "$order->value. *{$order->getLessonStart()}* - *{$order->getLessonEnd()}*";
     }
 }
