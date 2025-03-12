@@ -70,6 +70,11 @@ final class LessonSeeder extends Seeder
             ],
 
             [
+                'name' => 'Хмарні технології (л)',
+                'day_of_week' => 4,
+                'order' => 1,
+            ],
+            [
                 'name' => 'Розробка програмного забезпечення (л/пр)',
                 'day_of_week' => 4,
                 'order' => 2,
@@ -90,11 +95,6 @@ final class LessonSeeder extends Seeder
                 'name' => 'Моделювання систем (лб)',
                 'day_of_week' => 4,
                 'order' => 4,
-            ],
-            [
-                'name' => 'Хмарні технології (л)',
-                'day_of_week' => 4,
-                'order' => 5,
             ],
         ];
 
