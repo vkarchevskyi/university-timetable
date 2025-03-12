@@ -30,7 +30,7 @@ enum LessonOrder: int
     public function getLessonEnd(): string
     {
         return match ($this) {
-            self::FIRST => '9:50',
+            self::FIRST => '9:40',
             self::SECOND => '11:10',
             self::THIRD => '13:00',
             self::FOURTH => '14:30',
