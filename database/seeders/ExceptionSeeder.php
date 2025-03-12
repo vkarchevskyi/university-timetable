@@ -30,6 +30,50 @@ final class ExceptionSeeder extends Seeder
                 'name' => 'Основи 3D моделювання',
                 'order' => 4,
             ],
+
+            [
+                'date' => '2025-03-17',
+                'name' => 'Моделювання систем',
+                'order' => 3,
+            ],
+            [
+                'date' => '2025-03-17',
+                'name' => 'Хмарні технології',
+                'order' => 4,
+            ],
+            [
+                'date' => '2025-03-17',
+                'name' => null,
+                'order' => 5,
+            ],
+
+            [
+                'date' => '2025-03-18',
+                'name' => 'Моделювання систем',
+                'order' => 3,
+            ],
+            [
+                'date' => '2025-03-18',
+                'name' => 'Хмарні технології',
+                'order' => 4,
+            ],
+            [
+                'date' => '2025-03-18',
+                'name' => null,
+                'order' => 5,
+            ],
+
+            [
+                'date' => '2025-03-19',
+                'name' => null,
+                'order' => 5,
+            ],
+
+            [
+                'date' => '2025-03-20',
+                'name' => 'Хмарні технології',
+                'order' => 2,
+            ],
         ];
 
         foreach ($exceptions as $exception) {
