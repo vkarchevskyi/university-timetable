@@ -46,6 +46,25 @@ final readonly class GuessDatePeriodService
             ];
         }
 
+        if (preg_match('/\b(\d{1,2})\.(\d{1,2})\s*/u', $query, $matches)) {
+            $startDate = Facades\Date::createFromDate(
+                month: $matches[2],
+                day: $matches[1],
+                timezone: $this->timezone,
+            )->toImmutable()->startOfDay();
+
+            $endDate = Facades\Date::createFromDate(
+                month: $matches[2],
+                day: $matches[1],
+                timezone: $this->timezone,
+            )->toImmutable()->endOfDay();
+
+            return [
+                'start' => $startDate,
+                'end' => $endDate,
+            ];
+        }
+
         if (preg_match('/\b(\d{1,2})\.(\d{1,2})\s*[-–]?\s*(\d{1,2})\.(\d{1,2})\b/u', $query, $matches)) {
             $startDate = Facades\Date::createFromDate(
                 month: $matches[2],
