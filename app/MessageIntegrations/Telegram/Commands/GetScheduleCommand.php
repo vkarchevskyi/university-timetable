@@ -50,16 +50,7 @@ final class GetScheduleCommand extends Command
                     )
                     ->implode("\n")
             )
-            ->implode(function (string $item, string $key): string {
-                $dateTime = Date::createFromFormat('Y-m-d', $key);
-
-                return sprintf(
-                    "%s (%s) \n%s\n\n",
-                    DayOfWeek::from($dateTime->dayOfWeekIso)->getLabel(),
-                    $dateTime->format('d.m'),
-                    $item
-                );
-            });
+            ->implode($this->concatMultipleDaysService->handle(...));
 
         $text = $this->escapeCharactersService->handle($lessons);
 
