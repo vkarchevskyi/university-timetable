@@ -10,6 +10,6 @@ final class OrderMessageFormat implements MessageFormatStrategy
 {
     public function format(LessonValueObject $lesson): string
     {
-        return "$lesson->order.";
+        return "{$lesson->order->value}.";
     }
 }
