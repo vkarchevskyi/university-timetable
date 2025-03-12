@@ -42,10 +42,10 @@ final class GetScheduleCommand extends Command
     public function handle(): void
     {
         $text = $this->getUpdate()->getMessage()->get('text', '');
-        [$command, $query] = explode(' ', $text, 2);
+        $textParts = explode(' ', $text, 2);
 
-        $dates = $this->guessDatePeriodService->handle($query);
-        $messageStrategies = $this->getFormatStrategies($command);
+        $messageStrategies = $this->getFormatStrategies($textParts[0]);
+        $dates = $this->guessDatePeriodService->handle($textParts[1] ?? null);
 
         $lessons = $this->getScheduleService->handle($dates['start'], $dates['end'])
             ->filter(fn (Collection $lessons): bool => $lessons->isNotEmpty())
