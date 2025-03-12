@@ -2,31 +2,38 @@
 
 declare(strict_types=1);
 
-namespace App\MessageIntegrations\Telegram;
+namespace App\MessageIntegrations\Telegram\Commands;
 
-use App\Enums\DayOfWeek;
+use App\MessageIntegrations\Telegram\Formats\LessonNameMessageFormat;
+use App\MessageIntegrations\Telegram\Formats\MessageFormatStrategy;
+use App\MessageIntegrations\Telegram\Formats\OrderMessageFormat;
+use App\MessageIntegrations\Telegram\Formats\TeacherNameMessageFormat;
+use App\MessageIntegrations\Telegram\Formats\TimeMessageFormat;
 use App\Services\Lessons\GetScheduleService;
+use App\Services\Lessons\Telegram\ConcatMultipleDaysService;
 use App\Services\Lessons\Telegram\EscapeCharactersService;
-use App\Services\Lessons\Telegram\FormatOrderTimeService;
+use App\Services\Lessons\Telegram\FormatLessonMessageService;
 use App\Services\Lessons\Telegram\GuessDatePeriodService;
 use App\ValueObjects\LessonValueObject;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Date;
 use Telegram\Bot\Commands\Command;
 
 final class GetScheduleCommand extends Command
 {
     protected string $name = 'schedule';
 
-    protected array $aliases = ['s'];
+    protected array $aliases = [
+        's',
+        'st',
+        'stt',
+    ];
 
-    protected string $pattern = '{query}';
-
-    protected string $description = 'Отримати розклад';
+    protected string $description = 'Отримати розклад. Також є скорочення /s, /st та /stt для отримання розкладу, розкладу з часом та розкладу з часом та викладачами';
 
     public function __construct(
+        private readonly ConcatMultipleDaysService $concatMultipleDaysService,
         private readonly GuessDatePeriodService $guessDatePeriodService,
-        private readonly FormatOrderTimeService $formatOrderTimeService,
+        private readonly FormatLessonMessageService $formatLessonMessageService,
         private readonly EscapeCharactersService $escapeCharactersService,
         private readonly GetScheduleService $getScheduleService,
     ) {
@@ -34,18 +41,20 @@ final class GetScheduleCommand extends Command
 
     public function handle(): void
     {
-        $dateQuery = $this->argument('query');
-        $dates = $this->guessDatePeriodService->handle($dateQuery);
+        $text = $this->getUpdate()->getMessage()->get('text', '');
+        [$command, $query] = explode(' ', $text, 2);
+
+        $dates = $this->guessDatePeriodService->handle($query);
+        $messageStrategies = $this->getFormatStrategies($command);
 
         $lessons = $this->getScheduleService->handle($dates['start'], $dates['end'])
             ->filter(fn (Collection $lessons): bool => $lessons->isNotEmpty())
             ->map(
                 fn (Collection $lessons): string => $lessons
                     ->map(
-                        fn (LessonValueObject $lesson): string => sprintf(
-                            '%s %s',
-                            $this->formatOrderTimeService->handle($lesson->order),
-                            $lesson->name,
+                        fn (LessonValueObject $lesson): string => $this->formatLessonMessageService->handle(
+                            $messageStrategies,
+                            $lesson
                         )
                     )
                     ->implode("\n")
@@ -58,5 +67,26 @@ final class GetScheduleCommand extends Command
             'text' => empty($text) ? 'На цей період не виявлено жодних пар\\. Відпочивай\\!' : $text,
             'parse_mode' => 'MarkdownV2',
         ]);
+    }
+
+    /**
+     * @return MessageFormatStrategy[]
+     */
+    private function getFormatStrategies(string $command): array
+    {
+        $strategies = [
+            new OrderMessageFormat(),
+            new LessonNameMessageFormat(),
+        ];
+
+        if (str_contains($command, '/st')) {
+            $strategies[] = new TimeMessageFormat();
+        }
+
+        if (str_contains($command, '/stt')) {
+            $strategies[] = new TeacherNameMessageFormat();
+        }
+
+        return $strategies;
     }
 }
