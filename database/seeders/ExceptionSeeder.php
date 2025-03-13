@@ -19,27 +19,32 @@ final class ExceptionSeeder extends Seeder
                 'date' => '2025-03-11',
                 'name' => 'Основи 3D моделювання',
                 'order' => 2,
+                'teacher_id' => 1,
             ],
             [
                 'date' => '2025-03-13',
                 'name' => 'Основи 3D моделювання',
                 'order' => 1,
+                'teacher_id' => 1,
             ],
             [
                 'date' => '2025-03-13',
                 'name' => 'Основи 3D моделювання',
                 'order' => 4,
+                'teacher_id' => 1,
             ],
 
             [
                 'date' => '2025-03-17',
                 'name' => 'Моделювання систем',
                 'order' => 3,
+                'teacher_id' => 2,
             ],
             [
                 'date' => '2025-03-17',
                 'name' => 'Хмарні технології',
                 'order' => 4,
+                'teacher_id' => 4,
             ],
             [
                 'date' => '2025-03-17',
@@ -51,11 +56,13 @@ final class ExceptionSeeder extends Seeder
                 'date' => '2025-03-18',
                 'name' => 'Моделювання систем',
                 'order' => 3,
+                'teacher_id' => 2,
             ],
             [
                 'date' => '2025-03-18',
                 'name' => 'Хмарні технології',
                 'order' => 4,
+                'teacher_id' => 4,
             ],
             [
                 'date' => '2025-03-18',
@@ -73,6 +80,7 @@ final class ExceptionSeeder extends Seeder
                 'date' => '2025-03-20',
                 'name' => 'Хмарні технології',
                 'order' => 2,
+                'teacher_id' => 4,
             ],
         ];
 
