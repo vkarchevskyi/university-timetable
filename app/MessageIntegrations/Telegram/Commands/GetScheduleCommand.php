@@ -76,12 +76,13 @@ final class GetScheduleCommand extends Command
     {
         $strategies = [
             new OrderMessageFormat(),
-            new LessonNameMessageFormat(),
         ];
 
         if (str_contains($command, '/st')) {
             $strategies[] = new TimeMessageFormat();
         }
+
+        $strategies[] = new LessonNameMessageFormat();
 
         if (str_contains($command, '/stt')) {
             $strategies[] = new TeacherNameMessageFormat();
