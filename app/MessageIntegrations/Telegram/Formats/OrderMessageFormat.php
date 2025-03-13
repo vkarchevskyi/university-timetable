@@ -12,11 +12,11 @@ final class OrderMessageFormat implements MessageFormatStrategy
     public function format(LessonValueObject $lesson): string
     {
         return match ($lesson->order) {
-            LessonOrder::FIRST => ':one:',
-            LessonOrder::SECOND => ':two:',
-            LessonOrder::THIRD => ':three:',
-            LessonOrder::FOURTH => ':four:',
-            LessonOrder::FIFTH => ':five:',
+            LessonOrder::FIRST => "\u{31}\u{FE0F}\u{20E3}",
+            LessonOrder::SECOND => "\u{32}\u{FE0F}\u{20E3}",
+            LessonOrder::THIRD => "\u{33}\u{FE0F}\u{20E3}",
+            LessonOrder::FOURTH => "\u{34}\u{FE0F}\u{20E3}",
+            LessonOrder::FIFTH => "\u{35}\u{FE0F}\u{20E3}",
         };
     }
 }
