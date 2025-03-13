@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ *
+ *
  * @property int $id
  * @property string $name
  * @property DayOfWeek $day_of_week
@@ -18,7 +20,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool|null $is_numerator
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- *
  * @method static \Database\Factories\LessonFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson newQuery()
@@ -30,7 +31,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 final class Lesson extends Model
