@@ -10,8 +10,6 @@ final class TeacherNameMessageFormat implements MessageFormatStrategy
 {
     public function format(LessonValueObject $lesson): string
     {
-        // TODO: Implement format() method.
-
-        return '';
+        return $lesson->teacherName;
     }
 }

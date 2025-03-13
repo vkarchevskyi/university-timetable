@@ -22,11 +22,13 @@ final readonly class GetScheduleService
     public function handle(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
     {
         $exceptions = Exception::query()
+            ->with(['teacher:id,name'])
             ->whereBetween('date', [$startDate->utc(), $endDate->utc()])
             ->get(['id', 'date', 'name', 'order']);
 
         /** @var Collection<int, Collection<int, Lesson>> $lessons */
         $lessons = Lesson::query()
+            ->with(['teacher:id,name'])
             ->get(['id', 'name', 'day_of_week', 'order', 'is_numerator'])
             ->groupBy(fn (Lesson $lesson): int => $lesson->day_of_week->value);
 
@@ -45,7 +47,8 @@ final readonly class GetScheduleService
                         fn (Lesson $lesson): LessonValueObject => new LessonValueObject(
                             $lesson->name,
                             $currentDate->setTimeFromTimeString($lesson->order->getLessonStart()),
-                            $lesson->order
+                            $lesson->order,
+                            $lesson->teacher->name,
                         )
                     )
             );
@@ -93,6 +96,7 @@ final readonly class GetScheduleService
             $exception->name,
             $exception->date->setTimeFromTimeString($exception->order->getLessonStart()),
             $exception->order,
+            $exception->teacher->name,
         );
     }
 }

@@ -13,6 +13,7 @@ final readonly class LessonValueObject
         public string $name,
         public CarbonImmutable $datetime,
         public LessonOrder $order,
+        public string $teacherName,
     ) {
     }
 }
