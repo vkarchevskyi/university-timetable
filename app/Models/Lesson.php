@@ -9,6 +9,7 @@ use App\Enums\LessonOrder;
 use Database\Factories\LessonFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  *
@@ -20,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool|null $is_numerator
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property int|null $teacher_id
+ * @property-read Teacher|null $teacher
  * @method static \Database\Factories\LessonFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson newQuery()
@@ -30,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereIsNumerator($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereTeacherId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -43,6 +47,7 @@ final class Lesson extends Model
         'day_of_week',
         'order',
         'is_numerator',
+        'teacher_id',
     ];
 
     protected $casts = [
@@ -50,4 +55,9 @@ final class Lesson extends Model
         'order' => LessonOrder::class,
         'day_of_week' => DayOfWeek::class,
     ];
+
+    public function teacher(): BelongsTo
+    {
+        return $this->belongsTo(Teacher::class);
+    }
 }
