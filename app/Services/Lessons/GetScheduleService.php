@@ -24,12 +24,12 @@ final readonly class GetScheduleService
         $exceptions = Exception::query()
             ->with(['teacher:id,name'])
             ->whereBetween('date', [$startDate->utc(), $endDate->utc()])
-            ->get(['id', 'date', 'name', 'order']);
+            ->get(['id', 'date', 'name', 'order', 'teacher_id']);
 
         /** @var Collection<int, Collection<int, Lesson>> $lessons */
         $lessons = Lesson::query()
             ->with(['teacher:id,name'])
-            ->get(['id', 'name', 'day_of_week', 'order', 'is_numerator'])
+            ->get(['id', 'name', 'day_of_week', 'order', 'is_numerator', 'teacher_id'])
             ->groupBy(fn (Lesson $lesson): int => $lesson->day_of_week->value);
 
         $schedule = new Collection();
