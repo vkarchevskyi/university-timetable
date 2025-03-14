@@ -45,9 +45,9 @@ final class GetScheduleCommand extends Command
         $textParts = explode(' ', $text, 2);
 
         $messageStrategies = $this->getFormatStrategies($textParts[0]);
-        $dates = $this->guessDatePeriodService->handle($textParts[1] ?? null);
+        $period = $this->guessDatePeriodService->handle($textParts[1] ?? null);
 
-        $lessons = $this->getScheduleService->handle($dates['start'], $dates['end'])
+        $lessons = $this->getScheduleService->handle($period->start, $period->end)
             ->filter(fn (Collection $lessons): bool => $lessons->isNotEmpty())
             ->map(
                 fn (Collection $lessons): string => $lessons

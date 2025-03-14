@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services\Lessons\Telegram;
 
+use App\DataTransferObjects\PeriodData;
 use App\Services\Lessons\GetCurrentDateService;
-use Carbon\CarbonImmutable;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Facades;
 
@@ -17,15 +17,12 @@ final readonly class GuessDatePeriodService
     ) {
     }
 
-    /**
-     * @return array{start: CarbonImmutable, end: CarbonImmutable}
-     */
-    public function handle(?string $query): array
+    public function handle(?string $query): PeriodData
     {
-        $fallbackValues = [
-            'start' => $this->currentDateService->handle()->toImmutable(),
-            'end' => $this->currentDateService->handle()->endOfWeek()->toImmutable(),
-        ];
+        $fallbackValues = new PeriodData(
+            $this->currentDateService->handle()->toImmutable(),
+            $this->currentDateService->handle()->endOfWeek()->toImmutable()
+        );
 
         if (is_null($query)) {
             return $fallbackValues;
@@ -40,10 +37,7 @@ final readonly class GuessDatePeriodService
                 $dateTime = $dateTime->addDay();
             }
 
-            return [
-                'start' => $dateTime,
-                'end' => $dateTime->endOfDay(),
-            ];
+            return new PeriodData($dateTime, $dateTime->endOfDay());
         }
 
         if (preg_match('/\b(\d{1,2})\.(\d{1,2})\s*[-–]?\s*(\d{1,2})\.(\d{1,2})\b/u', $query, $matches)) {
@@ -59,10 +53,7 @@ final readonly class GuessDatePeriodService
                 timezone: $this->timezone,
             )->toImmutable()->endOfDay();
 
-            return [
-                'start' => $startDate,
-                'end' => $endDate,
-            ];
+            return new PeriodData($startDate, $endDate);
         }
 
         if (preg_match('/\b(\d{1,2})\.(\d{1,2})\s*/u', $query, $matches)) {
@@ -78,10 +69,7 @@ final readonly class GuessDatePeriodService
                 timezone: $this->timezone,
             )->toImmutable()->endOfDay();
 
-            return [
-                'start' => $startDate,
-                'end' => $endDate,
-            ];
+            return new PeriodData($startDate, $endDate);
         }
 
         return $fallbackValues;
