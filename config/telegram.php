@@ -44,6 +44,7 @@ return [
             'commands' => [
                 App\MessageIntegrations\Telegram\Commands\StartCommand::class,
                 App\MessageIntegrations\Telegram\Commands\GetScheduleCommand::class,
+                App\MessageIntegrations\Telegram\Commands\GetRingsCommand::class,
             ],
         ],
 
