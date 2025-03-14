@@ -6,6 +6,7 @@ namespace App\Services\Lessons\Telegram;
 
 use App\DataTransferObjects\PeriodData;
 use App\Services\Lessons\GetCurrentDateService;
+use Carbon\CarbonImmutable;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Facades;
 
@@ -41,33 +42,15 @@ final readonly class GuessDatePeriodService
         }
 
         if (preg_match('/\b(\d{1,2})\.(\d{1,2})\s*[-–]?\s*(\d{1,2})\.(\d{1,2})\b/u', $query, $matches)) {
-            $startDate = Facades\Date::createFromDate(
-                month: $matches[2],
-                day: $matches[1],
-                timezone: $this->timezone,
-            )->toImmutable()->startOfDay();
-
-            $endDate = Facades\Date::createFromDate(
-                month: $matches[4],
-                day: $matches[3],
-                timezone: $this->timezone,
-            )->toImmutable()->endOfDay();
+            $startDate = $this->createStartDate(month: $matches[2], day: $matches[1]);
+            $endDate = $this->createEndDate(month: $matches[4], day: $matches[3]);
 
             return new PeriodData($startDate, $endDate);
         }
 
         if (preg_match('/\b(\d{1,2})\.(\d{1,2})\s*/u', $query, $matches)) {
-            $startDate = Facades\Date::createFromDate(
-                month: $matches[2],
-                day: $matches[1],
-                timezone: $this->timezone,
-            )->toImmutable()->startOfDay();
-
-            $endDate = Facades\Date::createFromDate(
-                month: $matches[2],
-                day: $matches[1],
-                timezone: $this->timezone,
-            )->toImmutable()->endOfDay();
+            $startDate = $this->createStartDate(month: $matches[2], day: $matches[1]);
+            $endDate = $this->createEndDate(month: $matches[2], day: $matches[1]);
 
             return new PeriodData($startDate, $endDate);
         }
@@ -86,5 +69,23 @@ final readonly class GuessDatePeriodService
         }
 
         return null;
+    }
+
+    private function createStartDate(int|string $month, int|string $day): CarbonImmutable
+    {
+        return Facades\Date::createFromDate(
+            month: $month,
+            day: $day,
+            timezone: $this->timezone,
+        )->toImmutable()->startOfDay();
+    }
+
+    private function createEndDate(int|string $month, int|string $day): CarbonImmutable
+    {
+        return Facades\Date::createFromDate(
+            month: $month,
+            day: $day,
+            timezone: $this->timezone,
+        )->toImmutable()->endOfDay();
     }
 }
