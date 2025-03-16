@@ -23,7 +23,7 @@ final class GetRingsCommand extends Command
     {
         $content = '';
         foreach (LessonOrder::cases() as $order) {
-            $content .= "{$order->value}. {$order->getLessonStart()} - {$order->getLessonEnd()}";
+            $content .= "{$order->getEmojiValue()} {$order->getLessonStart()} - {$order->getLessonEnd()}\n";
         }
 
         $this->replyWithMessage([

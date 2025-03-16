@@ -37,4 +37,15 @@ enum LessonOrder: int
             self::FIFTH => '16:00',
         };
     }
+
+    public function getEmojiValue(): string
+    {
+        return match ($this) {
+            self::FIRST => "\u{31}\u{FE0F}\u{20E3}",
+            self::SECOND => "\u{32}\u{FE0F}\u{20E3}",
+            self::THIRD => "\u{33}\u{FE0F}\u{20E3}",
+            self::FOURTH => "\u{34}\u{FE0F}\u{20E3}",
+            self::FIFTH => "\u{35}\u{FE0F}\u{20E3}",
+        };
+    }
 }
