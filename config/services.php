@@ -37,4 +37,18 @@ return [
         ],
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => '/auth/google/callback',
+
+        'scopes' => [
+            'https://www.googleapis.com/auth/classroom.courses.readonly',
+            'https://www.googleapis.com/auth/classroom.coursework.me.readonly',
+        ],
+
+        'classroom' => [
+            'email' => env('GOOGLE_CLASSROOM_USER_EMAIL'),
+        ],
+    ],
 ];
