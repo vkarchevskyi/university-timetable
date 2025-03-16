@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Teacher whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Teacher whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Teacher whereUpdatedAt($value)
+ * @method static \Database\Factories\TeacherFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 final class Teacher extends Model
