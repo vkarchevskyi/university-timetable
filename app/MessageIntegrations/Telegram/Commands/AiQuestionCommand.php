@@ -28,6 +28,11 @@ final class AiQuestionCommand extends Command
         $message = $this->getUpdate()->getMessage();
         $text = explode(' ', $message->get('text', ''), 2)[1] ?? null;
 
+        if (is_null($text)) {
+            $this->replyWithMessage(['text' => 'Введіть будь ласка текст вашого питання.']);
+            return;
+        }
+
         $telegramMessage = $this->sendGeminiRequestService->handle(
             new AiTelegramRequestData($message->from->id, $message->chat->id, $text)
         );
