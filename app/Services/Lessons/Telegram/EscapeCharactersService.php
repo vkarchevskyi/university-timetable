@@ -14,8 +14,6 @@ final class EscapeCharactersService
     public function handle(string $message): string
     {
         return Str::of($message)
-            ->replace('_', '\\_')
-            ->replace('*', '\\*')
             ->replace('[', '\\[')
             ->replace(']', '\\]')
             ->replace('(', '\\(')
