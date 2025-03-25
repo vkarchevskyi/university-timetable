@@ -37,4 +37,7 @@ return [
         ],
     ],
 
+    'google' => [
+        'gemini' => env('GEMINI_APP_KEY')
+    ],
 ];
