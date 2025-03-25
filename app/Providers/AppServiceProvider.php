@@ -6,6 +6,8 @@ namespace App\Providers;
 
 use Carbon\CarbonImmutable;
 use GeminiAPI\Client;
+use GeminiAPI\GenerationConfig;
+use GeminiAPI\GenerativeModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
@@ -21,8 +23,23 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(Client::class, static function (): Client {
-            return new Client(Config::string('service.google.gemini'));
+        $this->app->singleton(GenerativeModel::class, static function (): GenerativeModel {
+            $geminiApiKey = Config::string('services.google.gemini.api_key');
+            $model = Config::string('services.google.gemini.model');
+            $topK = Config::integer('services.google.gemini.top_k');
+            $topP = Config::float('services.google.gemini.top_p');
+            $temperature = Config::get('services.google.gemini.temperature');
+            $maxOutputTokens = Config::integer('services.google.gemini.max_output_tokens');
+
+            return (new Client($geminiApiKey))
+                ->generativeModel($model)
+                ->withGenerationConfig(
+                    (new GenerationConfig())
+                        ->withTopK($topK)
+                        ->withTopP($topP)
+                        ->withTemperature($temperature)
+                        ->withMaxOutputTokens($maxOutputTokens)
+                );
         });
     }
 

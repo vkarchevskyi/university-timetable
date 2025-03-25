@@ -38,6 +38,13 @@ return [
     ],
 
     'google' => [
-        'gemini' => env('GEMINI_APP_KEY')
+        'gemini' => [
+            'api_key' => env('GEMINI_APP_KEY'),
+            'model' => env('GEMINI_MODEL', 'gemini-2.0-flash-lite'),
+            'top_k' => 40,
+            'top_p' => 0.95,
+            'temperature' => 1,
+            'max_output_tokens' => 8192,
+        ]
     ],
 ];
