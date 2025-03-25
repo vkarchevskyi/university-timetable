@@ -45,6 +45,7 @@ return [
                 App\MessageIntegrations\Telegram\Commands\StartCommand::class,
                 App\MessageIntegrations\Telegram\Commands\GetScheduleCommand::class,
                 App\MessageIntegrations\Telegram\Commands\GetRingsCommand::class,
+                App\MessageIntegrations\Telegram\Commands\AiQuestionCommand::class,
             ],
         ],
 
