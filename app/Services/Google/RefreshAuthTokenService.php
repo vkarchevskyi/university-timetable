@@ -7,7 +7,6 @@ namespace App\Services\Google;
 use App\Models\User;
 use Illuminate\Container\Attributes\CurrentUser;
 use Laravel\Socialite\Two\GoogleProvider;
-use Laravel\Socialite\Two\Token;
 
 final readonly class RefreshAuthTokenService
 {
@@ -18,13 +17,13 @@ final readonly class RefreshAuthTokenService
     ) {
     }
 
-    public function handle(Token $token): void
+    public function handle(): void
     {
         $tokenData = $this->googleProvider->refreshToken($this->user->google_refresh_token);
 
         $this->user->update([
             'google_token' => $tokenData->token,
-            'google_refresh_token' => $token->refreshToken,
+            'google_refresh_token' => $tokenData->refreshToken,
         ]);
     }
 }

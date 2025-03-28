@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\Google;
 
-use App\DataTransferObjects\GoogleUserData;
 use App\Models\User;
 use Illuminate\Container\Attributes\CurrentUser;
 use Laravel\Socialite\Two\GoogleProvider;
