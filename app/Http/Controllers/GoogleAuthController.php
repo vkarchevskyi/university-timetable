@@ -12,11 +12,13 @@ use Laravel\Socialite\Two\GoogleProvider;
 
 final class GoogleAuthController extends Controller
 {
+    /**
+     * @param string[] $scopes
+     */
     public function redirect(
         GoogleProvider $googleProvider,
         #[Config('services.google.scopes')] array $scopes,
-    ): RedirectResponse
-    {
+    ): RedirectResponse {
         return $googleProvider
             ->with([
                 'access_type' => 'offline',
