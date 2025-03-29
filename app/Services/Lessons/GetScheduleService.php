@@ -21,16 +21,8 @@ final readonly class GetScheduleService
      */
     public function handle(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
     {
-        $exceptions = Exception::query()
-            ->with(['teacher:id,name'])
-            ->whereBetween('date', [$startDate->utc(), $endDate->utc()])
-            ->get(['id', 'date', 'name', 'order', 'teacher_id']);
-
-        /** @var Collection<int, Collection<int, Lesson>> $lessons */
-        $lessons = Lesson::query()
-            ->with(['teacher:id,name', 'course:id,name'])
-            ->get(['id', 'day_of_week', 'order', 'is_numerator', 'teacher_id', 'course_id'])
-            ->groupBy(fn (Lesson $lesson): int => $lesson->day_of_week->value);
+        $exceptions = $this->getExceptionsWithinPeriod($startDate, $endDate);
+        $lessons = $this->getGroupedLessons();
 
         $schedule = new Collection();
         $currentDate = $startDate->startOfDay();
@@ -71,7 +63,7 @@ final readonly class GetScheduleService
                     continue;
                 }
 
-                if (empty($exception->name)) {
+                if (is_null($exception->course_id)) {
                     $specificDayLessons->forget($lessonWithException);
                 } else {
                     $specificDayLessons->put($lessonWithException, $this->createLessonValueObject($exception));
@@ -88,10 +80,32 @@ final readonly class GetScheduleService
         return $schedule;
     }
 
+    /**
+     * @return Collection<int, Exception>
+     */
+    private function getExceptionsWithinPeriod(CarbonImmutable $startDate, CarbonImmutable $endDate): Collection
+    {
+        return Exception::query()
+            ->with(['teacher:id,name', 'course:id,name'])
+            ->whereBetween('date', [$startDate->utc(), $endDate->utc()])
+            ->get(['id', 'date', 'order', 'teacher_id', 'course_id']);
+    }
+
+    /**
+     * @return Collection<int, Collection<int, Lesson>>
+     */
+    private function getGroupedLessons(): Collection
+    {
+        return Lesson::query()
+            ->with(['teacher:id,name', 'course:id,name'])
+            ->get(['id', 'day_of_week', 'order', 'is_numerator', 'teacher_id', 'course_id'])
+            ->groupBy(fn (Lesson $lesson): int => $lesson->day_of_week->value);
+    }
+
     private function createLessonValueObject(Exception $exception): LessonValueObject
     {
         return new LessonValueObject(
-            $exception->name,
+            $exception->course->name,
             $exception->date->setTimeFromTimeString($exception->order->getLessonStart()),
             $exception->order,
             $exception->teacher->name,
