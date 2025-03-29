@@ -23,7 +23,8 @@ final class LessonResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\Select::make('course_id')
+                    ->relationship('course', 'name')
                     ->required(),
                 Forms\Components\Select::make('day_of_week')
                     ->options(DayOfWeek::class)
@@ -33,7 +34,8 @@ final class LessonResource extends Resource
                     ->numeric(),
                 Forms\Components\Toggle::make('is_numerator'),
                 Forms\Components\Select::make('teacher_id')
-                    ->relationship('teacher', 'name'),
+                    ->relationship('teacher', 'name')
+                    ->required(),
             ]);
     }
 
@@ -41,7 +43,8 @@ final class LessonResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('course.name')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('day_of_week')
                     ->sortable(),
@@ -58,7 +61,6 @@ final class LessonResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('teacher.name')
-                    ->numeric()
                     ->sortable(),
             ])
             ->actions([
