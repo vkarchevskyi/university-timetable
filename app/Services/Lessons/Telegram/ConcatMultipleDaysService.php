@@ -20,7 +20,7 @@ final readonly class ConcatMultipleDaysService
 
         return sprintf(
             "%s (%s) \n%s\n\n",
-            DayOfWeek::from($dateTime->dayOfWeekIso)->getLabel(),
+            DayOfWeek::from($dateTime->dayOfWeekIso)->getRichLabel(),
             $dateTime->format('d.m'),
             $dayString
         );

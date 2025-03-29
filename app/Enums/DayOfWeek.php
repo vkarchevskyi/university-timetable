@@ -34,4 +34,22 @@ enum DayOfWeek: int implements HasLabel
             self::SUNDAY => 'Неділя',
         };
     }
+
+    public function getEmoji(): string
+    {
+        return match ($this) {
+            self::MONDAY => "\u{1F335}",
+            self::TUESDAY => "\u{1F333}",
+            self::WEDNESDAY => "\u{1F334}",
+            self::THURSDAY => "\u{1F332}",
+            self::FRIDAY => "\u{1F384}",
+            self::SATURDAY => "\u{2618}",
+            self::SUNDAY => "\u{1F340}",
+        };
+    }
+
+    public function getRichLabel(): string
+    {
+        return "{$this->getEmoji()} {$this->getLabel()}";
+    }
 }
