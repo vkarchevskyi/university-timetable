@@ -8,7 +8,7 @@ use App\Logging\Handlers\TelegramHandler;
 use Illuminate\Support\Facades\Config;
 use Monolog\Logger;
 
-class TelegramLogger
+final class TelegramLogger
 {
     /**
      * Create a custom Monolog instance.
