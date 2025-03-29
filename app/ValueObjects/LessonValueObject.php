@@ -6,6 +6,7 @@ namespace App\ValueObjects;
 
 use App\Enums\LessonOrder;
 use Carbon\CarbonImmutable;
+use Closure;
 
 final readonly class LessonValueObject
 {
@@ -15,5 +16,10 @@ final readonly class LessonValueObject
         public LessonOrder $order,
         public string $teacherName,
     ) {
+    }
+
+    public static function getOrderComparator(): Closure
+    {
+        return fn (LessonValueObject $l1, LessonValueObject $l2): int => $l1->order->value <=> $l2->order->value;
     }
 }

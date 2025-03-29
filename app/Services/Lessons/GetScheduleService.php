@@ -80,9 +80,7 @@ final readonly class GetScheduleService
 
             $schedule->put(
                 $currentDate->format('Y-m-d'),
-                $specificDayLessons->sort(
-                    fn (LessonValueObject $l1, LessonValueObject $l2): int => $l1->order->value <=> $l2->order->value
-                ),
+                $specificDayLessons->sort(LessonValueObject::getOrderComparator())
             );
             $currentDate = $currentDate->addDay();
         }
