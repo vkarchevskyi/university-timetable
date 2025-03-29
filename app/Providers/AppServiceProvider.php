@@ -23,15 +23,16 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(GenerativeModel::class, static function (): GenerativeModel {
-            $geminiApiKey = Config::string('services.google.gemini.api_key');
-            $model = Config::string('services.google.gemini.model');
-            $topK = Config::integer('services.google.gemini.top_k');
-            $topP = Config::float('services.google.gemini.top_p');
-            $temperature = Config::get('services.google.gemini.temperature');
-            $maxOutputTokens = Config::integer('services.google.gemini.max_output_tokens');
-
-            return (new Client($geminiApiKey))
+        $this->app->singleton(
+            GenerativeModel::class,
+            static fn (
+                #[Config('services.google.gemini.api_key')] string $geminiApiKey,
+                #[Config('services.google.gemini.model')] string $model,
+                #[Config('services.google.gemini.top_k')] int $topK,
+                #[Config('services.google.gemini.top_p')] float $topP,
+                #[Config('services.google.gemini.temperature')] int|float $temperature,
+                #[Config('services.google.gemini.max_output_tokens')] int $maxOutputTokens,
+            ): GenerativeModel => (new Client($geminiApiKey))
                 ->generativeModel($model)
                 ->withGenerationConfig(
                     (new GenerationConfig())
