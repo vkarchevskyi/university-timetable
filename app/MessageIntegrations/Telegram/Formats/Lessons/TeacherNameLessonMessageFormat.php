@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\MessageIntegrations\Telegram\Formats;
+namespace App\MessageIntegrations\Telegram\Formats\Lessons;
 
 use App\ValueObjects\LessonValueObject;
 
-final class TeacherNameMessageFormat implements MessageFormatStrategy
+final class TeacherNameLessonMessageFormat implements LessonsMessageFormatStrategy
 {
     public function format(LessonValueObject $lesson): string
     {

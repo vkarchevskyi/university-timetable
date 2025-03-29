@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services\Lessons\Telegram;
 
-use App\MessageIntegrations\Telegram\Formats\MessageFormatStrategy;
+use App\MessageIntegrations\Telegram\Formats\Lessons\LessonsMessageFormatStrategy;
 use App\ValueObjects\LessonValueObject;
 
 final class FormatLessonMessageService
 {
     /**
-     * @param MessageFormatStrategy[] $formatStrategies
+     * @param LessonsMessageFormatStrategy[] $formatStrategies
      */
     public function handle(array $formatStrategies, LessonValueObject $lesson): string
     {

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\MessageIntegrations\Telegram\Commands;
 
-use App\MessageIntegrations\Telegram\Formats\LessonNameMessageFormat;
-use App\MessageIntegrations\Telegram\Formats\MessageFormatStrategy;
-use App\MessageIntegrations\Telegram\Formats\OrderMessageFormat;
-use App\MessageIntegrations\Telegram\Formats\TeacherNameMessageFormat;
-use App\MessageIntegrations\Telegram\Formats\TimeMessageFormat;
+use App\MessageIntegrations\Telegram\Formats\Lessons\NameLessonMessageFormat;
+use App\MessageIntegrations\Telegram\Formats\Lessons\LessonsMessageFormatStrategy;
+use App\MessageIntegrations\Telegram\Formats\Lessons\OrderLessonsMessageFormat;
+use App\MessageIntegrations\Telegram\Formats\Lessons\TeacherNameLessonMessageFormat;
+use App\MessageIntegrations\Telegram\Formats\Lessons\TimeLessonsMessageFormat;
 use App\Services\Lessons\GetScheduleService;
 use App\Services\Lessons\Telegram\ConcatMultipleDaysService;
 use App\Services\Lessons\Telegram\EscapeCharactersService;
@@ -70,22 +70,22 @@ final class GetScheduleCommand extends Command
     }
 
     /**
-     * @return MessageFormatStrategy[]
+     * @return LessonsMessageFormatStrategy[]
      */
     private function getFormatStrategies(string $command): array
     {
         $strategies = [
-            new OrderMessageFormat(),
+            new OrderLessonsMessageFormat(),
         ];
 
         if (str_contains($command, '/st')) {
-            $strategies[] = new TimeMessageFormat();
+            $strategies[] = new TimeLessonsMessageFormat();
         }
 
-        $strategies[] = new LessonNameMessageFormat();
+        $strategies[] = new NameLessonMessageFormat();
 
         if (str_contains($command, '/stt')) {
-            $strategies[] = new TeacherNameMessageFormat();
+            $strategies[] = new TeacherNameLessonMessageFormat();
         }
 
         return $strategies;
