@@ -16,44 +16,50 @@ final class LessonSeeder extends Seeder
     {
         $lessons = [
             [
-                'name' => 'Основи 3D моделювання',
+                'course_id' => 6,
+                'day_of_week' => 1,
+                'order' => 1,
+                'teacher_id' => 5,
+            ],
+            [
+                'course_id' => 6,
+                'day_of_week' => 1,
+                'order' => 2,
+                'teacher_id' => 5,
+            ],
+            [
+                'course_id' => 1,
                 'day_of_week' => 1,
                 'order' => 3,
                 'teacher_id' => 1,
             ],
             [
-                'name' => 'Основи 3D моделювання',
+                'course_id' => 1,
                 'day_of_week' => 1,
                 'order' => 4,
                 'teacher_id' => 1,
             ],
-            [
-                'name' => 'Розробка програмного забезпечення (пр)',
-                'day_of_week' => 1,
-                'order' => 5,
-                'teacher_id' => 1,
-            ],
 
             [
-                'name' => 'Моделювання систем (л)',
+                'course_id' => 3,
                 'day_of_week' => 2,
                 'order' => 2,
                 'teacher_id' => 2,
             ],
             [
-                'name' => 'Розробка програмного забезпечення (л/пр)',
+                'course_id' => 2,
                 'day_of_week' => 2,
                 'order' => 3,
                 'teacher_id' => 1,
             ],
             [
-                'name' => 'Основи 3D моделювання',
+                'course_id' => 1,
                 'day_of_week' => 2,
                 'order' => 4,
                 'teacher_id' => 1,
             ],
             [
-                'name' => 'Основи 3D моделювання',
+                'course_id' => 1,
                 'day_of_week' => 2,
                 'order' => 5,
                 'is_numerator' => true,
@@ -61,55 +67,68 @@ final class LessonSeeder extends Seeder
             ],
 
             [
-                'name' => 'Іноземна мова',
+                'course_id' => 4,
                 'day_of_week' => 3,
                 'order' => 3,
                 'teacher_id' => 3,
             ],
             [
-                'name' => 'Іноземна мова',
+                'course_id' => 4,
                 'day_of_week' => 3,
                 'order' => 4,
                 'teacher_id' => 3,
             ],
             [
-                'name' => 'Розробка програмного забезпечення (л/пр)',
+                'course_id' => 2,
                 'day_of_week' => 3,
                 'order' => 5,
                 'teacher_id' => 1,
             ],
 
             [
-                'name' => 'Хмарні технології (л)',
+                'course_id' => 5,
                 'day_of_week' => 4,
                 'order' => 1,
                 'teacher_id' => 4,
             ],
             [
-                'name' => 'Розробка програмного забезпечення (л/пр)',
+                'course_id' => 2,
                 'day_of_week' => 4,
                 'order' => 2,
                 'teacher_id' => 1,
             ],
             [
-                'name' => 'Хмарні технології (пр)',
+                'course_id' => 5,
                 'day_of_week' => 4,
                 'order' => 3,
                 'is_numerator' => true,
                 'teacher_id' => 4,
             ],
             [
-                'name' => 'Моделювання систем (с)',
+                'course_id' => 3,
                 'day_of_week' => 4,
                 'order' => 3,
                 'is_numerator' => false,
                 'teacher_id' => 2,
             ],
             [
-                'name' => 'Моделювання систем (лб)',
+                'course_id' => 3,
                 'day_of_week' => 4,
                 'order' => 4,
                 'teacher_id' => 2,
+            ],
+
+            [
+                'course_id' => 6,
+                'day_of_week' => 5,
+                'order' => 1,
+                'teacher_id' => 5,
+            ],
+            [
+                'course_id' => 6,
+                'day_of_week' => 5,
+                'order' => 2,
+                'teacher_id' => 5,
             ],
         ];
 
