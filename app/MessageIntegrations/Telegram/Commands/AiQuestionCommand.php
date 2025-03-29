@@ -30,7 +30,7 @@ final class AiQuestionCommand extends Command
     {
         /** @var Message $message */
         $message = $this->getUpdate()->getMessage();
-        $text = explode(' ', $message->get('text', ''), 2)[1] ?? null;
+        $text = explode(' ', $message->text ?? '', 2)[1] ?? null;
 
         if (is_null($text)) {
             $this->replyWithMessage(['text' => 'Введіть будь ласка текст вашого питання.']);

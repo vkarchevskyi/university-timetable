@@ -17,6 +17,7 @@ use App\Services\Lessons\Telegram\GuessDatePeriodService;
 use App\ValueObjects\LessonValueObject;
 use Illuminate\Support\Collection;
 use Telegram\Bot\Commands\Command;
+use Telegram\Bot\Objects\Message;
 
 final class GetScheduleCommand extends Command
 {
@@ -41,8 +42,9 @@ final class GetScheduleCommand extends Command
 
     public function handle(): void
     {
-        $text = $this->getUpdate()->getMessage()->get('text', '');
-        $textParts = explode(' ', $text, 2);
+        /** @var Message $message */
+        $message = $this->getUpdate()->getMessage();
+        $textParts = explode(' ', $message->text ?? '', 2);
 
         $messageStrategies = $this->getFormatStrategies($textParts[0]);
         $period = $this->guessDatePeriodService->handle($textParts[1] ?? null);
