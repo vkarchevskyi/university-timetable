@@ -8,6 +8,7 @@ use App\Models\Exception;
 use App\Models\Lesson;
 use App\ValueObjects\LessonValueObject;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 
 final readonly class GetScheduleService
@@ -49,6 +50,7 @@ final readonly class GetScheduleService
             $specificDayExceptions = $exceptions->whereBetween('date', [$currentDate, $currentDate->endOfDay()]);
 
             foreach ($specificDayExceptions as $exception) {
+                /** @var int|false $lessonWithException */
                 $lessonWithException = $specificDayLessons->search(
                     fn (LessonValueObject $lesson): bool => $lesson->datetime->equalTo(
                         $exception->date
@@ -92,7 +94,7 @@ final readonly class GetScheduleService
     }
 
     /**
-     * @return Collection<int, Collection<int, Lesson>>
+     * @return Collection<int, EloquentCollection<int, Lesson>>
      */
     private function getGroupedLessons(): Collection
     {

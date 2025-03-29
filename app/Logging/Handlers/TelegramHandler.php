@@ -7,7 +7,6 @@ namespace App\Logging\Handlers;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Monolog\Handler\AbstractProcessingHandler;
-use Monolog\Logger;
 use Monolog\LogRecord;
 use Telegram\Bot\Api;
 use Telegram\Bot\Exceptions\TelegramSDKException;
@@ -19,13 +18,11 @@ final class TelegramHandler extends AbstractProcessingHandler
     private readonly string $fallbackChannel;
 
     /**
-     * @param array<string, string> $config
+     * @param array{level: \Psr\Log\LogLevel::*, channel_id: string, fallback_channel: string|null} $config
      */
     public function __construct(array $config)
     {
-        $level = Logger::toMonologLevel($config['level']);
-
-        parent::__construct($level);
+        parent::__construct($config['level']);
 
         $this->channelId = $config['channel_id'];
         $this->fallbackChannel = $config['fallback_channel'] ?? 'single';

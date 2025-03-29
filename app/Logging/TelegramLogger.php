@@ -13,7 +13,7 @@ final class TelegramLogger
     /**
      * Create a custom Monolog instance.
      *
-     * @param array<string, string> $config
+     * @param array{level: \Psr\Log\LogLevel::*, channel_id: string, fallback_channel: string|null} $config
      */
     public function __invoke(array $config): Logger
     {
