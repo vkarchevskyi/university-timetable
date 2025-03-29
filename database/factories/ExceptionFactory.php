@@ -19,9 +19,10 @@ final class ExceptionFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word(),
             'date' => $this->faker->date(),
             'order' => $this->faker->randomElement([1, 2, 3, 4, 5]),
+            'teacher_id' => null,
+            'course_id' => null,
         ];
     }
 }
