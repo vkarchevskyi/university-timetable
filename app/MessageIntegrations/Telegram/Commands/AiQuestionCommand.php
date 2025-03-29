@@ -9,6 +9,7 @@ use App\MessageIntegrations\Telegram\Formats\Gemini\BulletPointGeminiMessageForm
 use App\Services\Gemini\SendGeminiRequestService;
 use App\Services\Gemini\Telegram\FormatGeminiMessageService;
 use App\Services\Lessons\Telegram\EscapeCharactersService;
+use RuntimeException;
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Objects\Message;
 
@@ -34,6 +35,10 @@ final class AiQuestionCommand extends Command
         if (is_null($text)) {
             $this->replyWithMessage(['text' => 'Введіть будь ласка текст вашого питання.']);
             return;
+        }
+
+        if (is_null($message->from)) {
+            throw new RuntimeException('Unknown message sender.');
         }
 
         $telegramMessage = $this->sendGeminiRequestService->handle(

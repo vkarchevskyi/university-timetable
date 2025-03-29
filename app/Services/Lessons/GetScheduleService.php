@@ -10,6 +10,7 @@ use App\ValueObjects\LessonValueObject;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
+use RuntimeException;
 
 final readonly class GetScheduleService
 {
@@ -106,11 +107,18 @@ final readonly class GetScheduleService
 
     private function createLessonValueObject(Exception $exception): LessonValueObject
     {
+        $courseName = $exception->course?->name;
+        $teacherName = $exception->teacher?->name;
+
+        if (is_null($courseName) || is_null($teacherName)) {
+            throw new RuntimeException("Exception with id = $exception->id doesn't belong to course or teacher");
+        }
+
         return new LessonValueObject(
-            $exception->course->name,
+            $courseName,
             $exception->date->setTimeFromTimeString($exception->order->getLessonStart()),
             $exception->order,
-            $exception->teacher->name,
+            $teacherName,
         );
     }
 }
