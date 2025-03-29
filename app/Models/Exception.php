@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property LessonOrder $order
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property int|null $teacher_id
- * @property-read Teacher|null $teacher
+ * @property int $teacher_id
+ * @property-read Teacher $teacher
  * @method static \Database\Factories\ExceptionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception newQuery()
@@ -51,6 +51,9 @@ final class Exception extends Model
         'order' => LessonOrder::class,
     ];
 
+    /**
+     * @return BelongsTo<Teacher, $this>
+     */
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
