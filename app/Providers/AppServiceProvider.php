@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\GoogleProvider;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -23,23 +25,24 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(GenerativeModel::class, static function (): GenerativeModel {
-            $geminiApiKey = Config::string('services.google.gemini.api_key');
-            $model = Config::string('services.google.gemini.model');
-            $topK = Config::integer('services.google.gemini.top_k');
-            $topP = Config::float('services.google.gemini.top_p');
-            $temperature = Config::get('services.google.gemini.temperature');
-            $maxOutputTokens = Config::integer('services.google.gemini.max_output_tokens');
-
-            return (new Client($geminiApiKey))
-                ->generativeModel($model)
+        $this->app->singleton(
+            GenerativeModel::class,
+            static fn (): GenerativeModel => (new Client(Config::string('services.google.gemini.api_key')))
+                ->generativeModel(Config::string('services.google.gemini.model'))
                 ->withGenerationConfig(
                     (new GenerationConfig())
-                        ->withTopK($topK)
-                        ->withTopP($topP)
-                        ->withTemperature($temperature)
-                        ->withMaxOutputTokens($maxOutputTokens)
-                );
+                        ->withTopK(Config::integer('services.google.gemini.top_k'))
+                        ->withTopP(Config::float('services.google.gemini.top_p'))
+                        ->withTemperature(Config::float('services.google.gemini.temperature'))
+                        ->withMaxOutputTokens(Config::integer('services.google.gemini.max_output_tokens'))
+                )
+        );
+
+        $this->app->singleton(GoogleProvider::class, static function (): GoogleProvider {
+            /** @var GoogleProvider $googleProvider */
+            $googleProvider = Socialite::driver('google');
+
+            return $googleProvider;
         });
     }
 

@@ -8,13 +8,17 @@ use App\DataTransferObjects\PeriodData;
 use App\Services\Lessons\GetCurrentDateService;
 use Carbon\CarbonImmutable;
 use Illuminate\Container\Attributes\Config;
-use Illuminate\Support\Facades;
+use Illuminate\Support\Facades\Date;
 
 final readonly class GuessDatePeriodService
 {
+    /**
+     * @param array<int, string[]> $dayOfWeeks
+     */
     public function __construct(
         private GetCurrentDateService $currentDateService,
         #[Config('lessons.timezone')] private string $timezone,
+        #[Config('lessons.day_of_weeks')] private array $dayOfWeeks
     ) {
     }
 
@@ -32,7 +36,7 @@ final readonly class GuessDatePeriodService
         $query = mb_strtolower(mb_trim($query));
 
         if ($dayOfWeek = $this->getDayOfWeek($query)) {
-            $dateTime = Facades\Date::now()->setTimezone($this->timezone)->startOfDay()->toImmutable();
+            $dateTime = Date::now()->setTimezone($this->timezone)->startOfDay()->toImmutable();
 
             while ($dateTime->dayOfWeekIso !== $dayOfWeek) {
                 $dateTime = $dateTime->addDay();
@@ -60,7 +64,7 @@ final readonly class GuessDatePeriodService
 
     private function getDayOfWeek(string $query): ?int
     {
-        foreach (Facades\Config::array('lessons.day_of_weeks') as $dayOfWeekNumber => $dayOfWeekAliases) {
+        foreach ($this->dayOfWeeks as $dayOfWeekNumber => $dayOfWeekAliases) {
             foreach ($dayOfWeekAliases as $dayOfWeekAlias) {
                 if (str_contains($dayOfWeekAlias, $query)) {
                     return $dayOfWeekNumber;
@@ -73,19 +77,11 @@ final readonly class GuessDatePeriodService
 
     private function createStartDate(int|string $month, int|string $day): CarbonImmutable
     {
-        return Facades\Date::createFromDate(
-            month: $month,
-            day: $day,
-            timezone: $this->timezone,
-        )->toImmutable()->startOfDay();
+        return Date::createFromDate($month, $day, $this->timezone)->toImmutable()->startOfDay();
     }
 
     private function createEndDate(int|string $month, int|string $day): CarbonImmutable
     {
-        return Facades\Date::createFromDate(
-            month: $month,
-            day: $day,
-            timezone: $this->timezone,
-        )->toImmutable()->endOfDay();
+        return Date::createFromDate($month, $day, $this->timezone)->toImmutable()->endOfDay();
     }
 }
