@@ -134,6 +134,7 @@ return [
             'via' => \App\Logging\TelegramLogger::class,
             'level'  => 'debug',
             'channel_id' => env('TELEGRAM_LOG_CHANNEL_ID'),
+            'fallback_channel' => 'daily',
         ]
     ],
 

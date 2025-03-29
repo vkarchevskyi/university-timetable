@@ -16,16 +16,19 @@ final class TelegramHandler extends AbstractProcessingHandler
 {
     private readonly string $channelId;
 
+    private readonly string $fallbackChannel;
+
     /**
-     * @param array{driver: string, via: class-string, level: string, channel_id: string} $config
+     * @param array<string, string> $config
      */
     public function __construct(array $config)
     {
         $level = Logger::toMonologLevel($config['level']);
 
-        parent::__construct($level, bubble: true);
+        parent::__construct($level);
 
         $this->channelId = $config['channel_id'];
+        $this->fallbackChannel = $config['fallback_channel'] ?? 'single';
     }
 
     protected function write(LogRecord $record): void
@@ -39,7 +42,7 @@ final class TelegramHandler extends AbstractProcessingHandler
                 'text' => $this->composeMessage($record),
             ]);
         } catch (TelegramSDKException $e) {
-            Log::channel('single')->error($e->getMessage());
+            Log::channel($this->fallbackChannel)->error($e->getMessage());
         }
     }
 
