@@ -28,7 +28,7 @@ final readonly class GetScheduleService
 
         /** @var Collection<int, Collection<int, Lesson>> $lessons */
         $lessons = Lesson::query()
-            ->with(['teacher:id,name', 'course:id,title'])
+            ->with(['teacher:id,name', 'course:id,name'])
             ->get(['id', 'day_of_week', 'order', 'is_numerator', 'teacher_id', 'course_id'])
             ->groupBy(fn (Lesson $lesson): int => $lesson->day_of_week->value);
 
@@ -45,7 +45,7 @@ final readonly class GetScheduleService
                     )
                     ->map(
                         fn (Lesson $lesson): LessonValueObject => new LessonValueObject(
-                            $lesson->course->title,
+                            $lesson->course->name,
                             $currentDate->setTimeFromTimeString($lesson->order->getLessonStart()),
                             $lesson->order,
                             $lesson->teacher->name,

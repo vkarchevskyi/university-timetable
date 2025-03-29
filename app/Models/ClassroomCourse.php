@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int|null $course_id
  * @property int|null $teacher_id
- * @property string $title
+ * @property string $name
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ClassroomCourse newModelQuery()
@@ -21,8 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ClassroomCourse whereCourseId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ClassroomCourse whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ClassroomCourse whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ClassroomCourse whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ClassroomCourse whereTeacherId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ClassroomCourse whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ClassroomCourse whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -31,12 +31,12 @@ final class ClassroomCourse extends Model
     protected $fillable = [
         'course_id',
         'teacher_id',
-        'title',
+        'name',
     ];
 
     protected $casts = [
         'course_id' => 'integer',
         'teacher_id' => 'integer',
-        'title' => 'string',
+        'name' => 'string',
     ];
 }

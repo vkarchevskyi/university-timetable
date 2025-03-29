@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  *
  * @property int $id
- * @property string $title
+ * @property string $name
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @method static \Database\Factories\CourseFactory factory($count = null, $state = [])
@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -31,10 +31,10 @@ final class Course extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
+        'name',
     ];
 
     protected $casts = [
-        'title' => 'string',
+        'name' => 'string',
     ];
 }

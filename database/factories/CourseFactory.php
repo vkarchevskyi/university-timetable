@@ -19,7 +19,7 @@ final class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => mb_ucfirst($this->faker->word),
+            'name' => mb_ucfirst($this->faker->word),
         ];
     }
 }

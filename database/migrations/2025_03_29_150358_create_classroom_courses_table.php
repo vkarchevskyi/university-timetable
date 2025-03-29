@@ -29,7 +29,7 @@ return new class () extends Migration {
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->string('title');
+            $table->string('name');
 
             $table->timestamps();
         });
