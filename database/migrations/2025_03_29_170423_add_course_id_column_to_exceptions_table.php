@@ -13,13 +13,14 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('exceptions', function (Blueprint $table) {
-            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->dropColumn('name');
 
-            $table->foreign(['teacher_id'])
+            $table->unsignedBigInteger('course_id')->nullable();
+            $table->foreign('course_id')
                 ->references('id')
-                ->on('teachers')
+                ->on('courses')
                 ->cascadeOnUpdate()
-                ->nullOnDelete();
+                ->cascadeOnDelete();
         });
     }
 
@@ -29,8 +30,10 @@ return new class () extends Migration {
     public function down(): void
     {
         Schema::table('exceptions', function (Blueprint $table) {
-            $table->dropForeign(['teacher_id']);
-            $table->dropColumn('teacher_id');
+            $table->dropForeign(['course_id']);
+            $table->dropColumn('course_id');
+
+            $table->string('name')->nullable();
         });
     }
 };

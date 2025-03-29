@@ -14,21 +14,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  *
  * @property int $id
- * @property string|null $name
  * @property \Carbon\CarbonImmutable $date
  * @property LessonOrder $order
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property int $teacher_id
- * @property-read Teacher $teacher
+ * @property int|null $teacher_id
+ * @property int|null $course_id
+ * @property-read Course|null $course
+ * @property-read Teacher|null $teacher
  * @method static \Database\Factories\ExceptionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereCourseId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereTeacherId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereUpdatedAt($value)
@@ -41,14 +42,16 @@ final class Exception extends Model
 
     protected $fillable = [
         'date',
-        'name',
         'order',
         'teacher_id',
+        'course_id',
     ];
 
     protected $casts = [
         'date' => 'immutable_datetime',
         'order' => LessonOrder::class,
+        'teacher_id' => 'integer',
+        'course_id' => 'integer',
     ];
 
     /**
@@ -57,5 +60,13 @@ final class Exception extends Model
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
+    }
+
+    /**
+     * @return BelongsTo<Course, $this>
+     */
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class);
     }
 }
