@@ -8,8 +8,8 @@ use Carbon\CarbonImmutable;
 use GeminiAPI\Client;
 use GeminiAPI\GenerationConfig;
 use GeminiAPI\GenerativeModel;
-use Illuminate\Container\Attributes\Config;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
@@ -27,21 +27,14 @@ final class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             GenerativeModel::class,
-            static fn (
-                #[Config('services.google.gemini.api_key')] string $geminiApiKey,
-                #[Config('services.google.gemini.model')] string $model,
-                #[Config('services.google.gemini.top_k')] int $topK,
-                #[Config('services.google.gemini.top_p')] float $topP,
-                #[Config('services.google.gemini.temperature')] int|float $temperature,
-                #[Config('services.google.gemini.max_output_tokens')] int $maxOutputTokens,
-            ): GenerativeModel => (new Client($geminiApiKey))
-                ->generativeModel($model)
+            static fn (): GenerativeModel => (new Client(Config::string('services.google.gemini.api_key')))
+                ->generativeModel(Config::string('services.google.gemini.model'))
                 ->withGenerationConfig(
                     (new GenerationConfig())
-                        ->withTopK($topK)
-                        ->withTopP($topP)
-                        ->withTemperature($temperature)
-                        ->withMaxOutputTokens($maxOutputTokens)
+                        ->withTopK(Config::integer('services.google.gemini.top_k'))
+                        ->withTopP(Config::float('services.google.gemini.top_p'))
+                        ->withTemperature(Config::float('services.google.gemini.temperature'))
+                        ->withMaxOutputTokens(Config::integer('services.google.gemini.max_output_tokens'))
                 )
         );
 
