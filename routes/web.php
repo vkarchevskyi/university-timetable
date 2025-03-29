@@ -6,10 +6,14 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\TelegramController;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', static fn (): View => view('welcome'))
     ->name('homepage');
+
+Route::get('/login', static fn(): RedirectResponse => new RedirectResponse('/admin/login'))
+    ->name('login');
 
 Route::post('/telegram/webhook', [TelegramController::class, 'webhook'])
     ->name('telegram.webhook')
