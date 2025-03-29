@@ -16,8 +16,10 @@ Route::post('/telegram/webhook', [TelegramController::class, 'webhook'])
     ->withoutMiddleware([VerifyCsrfToken::class]);
 
 Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])
+    ->middleware(['auth'])
     ->name('auth.google');
 
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])
     ->name('auth.google.callback')
+    ->middleware(['auth'])
     ->withoutMiddleware(VerifyCsrfToken::class);
