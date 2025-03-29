@@ -22,7 +22,8 @@ final class ExceptionResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name'),
+                Forms\Components\Select::make('course_id')
+                    ->relationship('course', 'name'),
                 Forms\Components\DatePicker::make('date')
                     ->required(),
                 Forms\Components\TextInput::make('order')
@@ -37,7 +38,7 @@ final class ExceptionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('course.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('date')
                     ->date()
@@ -53,7 +54,6 @@ final class ExceptionResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('teacher.name')
-                    ->numeric()
                     ->sortable(),
             ])
             ->filters([
