@@ -16,72 +16,80 @@ final class ExceptionSeeder extends Seeder
     {
         $exceptions = [
             [
-                'date' => '2025-03-11',
-                'name' => 'Основи 3D моделювання',
-                'order' => 2,
-                'teacher_id' => 1,
-            ],
-            [
-                'date' => '2025-03-13',
-                'name' => 'Основи 3D моделювання',
+                'date' => '2025-03-31',
+                'course_id' => null,
                 'order' => 1,
-                'teacher_id' => 1,
+                'teacher_id' => null,
             ],
             [
-                'date' => '2025-03-13',
-                'name' => 'Основи 3D моделювання',
-                'order' => 4,
-                'teacher_id' => 1,
-            ],
-
-            [
-                'date' => '2025-03-17',
-                'name' => 'Моделювання систем',
-                'order' => 3,
-                'teacher_id' => 2,
-            ],
-            [
-                'date' => '2025-03-17',
-                'name' => 'Хмарні технології',
-                'order' => 4,
-                'teacher_id' => 4,
-            ],
-            [
-                'date' => '2025-03-17',
-                'name' => null,
-                'order' => 5,
-            ],
-
-            [
-                'date' => '2025-03-18',
-                'name' => 'Моделювання систем',
-                'order' => 3,
-                'teacher_id' => 2,
-            ],
-            [
-                'date' => '2025-03-18',
-                'name' => 'Хмарні технології',
-                'order' => 4,
-                'teacher_id' => 4,
-            ],
-            [
-                'date' => '2025-03-18',
-                'name' => null,
-                'order' => 5,
-            ],
-
-            [
-                'date' => '2025-03-19',
-                'name' => null,
-                'order' => 5,
-            ],
-
-            [
-                'date' => '2025-03-20',
-                'name' => 'Хмарні технології',
+                'date' => '2025-03-31',
+                'course_id' => null,
                 'order' => 2,
+                'teacher_id' => null,
+            ],
+            [
+                'date' => '2025-03-31',
+                'course_id' => 5,
+                'order' => 3,
                 'teacher_id' => 4,
             ],
+            [
+                'date' => '2025-03-31',
+                'course_id' => 5,
+                'order' => 4,
+                'teacher_id' => 4,
+            ],
+
+            [
+                'date' => '2025-04-01',
+                'course_id' => 4,
+                'order' => 2,
+                'teacher_id' => 3,
+            ],
+            [
+                'date' => '2025-04-01',
+                'course_id' => 3,
+                'order' => 3,
+                'teacher_id' => 2,
+            ],
+            [
+                'date' => '2025-04-01',
+                'course_id' => null,
+                'order' => 4,
+                'teacher_id' => null,
+            ],
+            [
+                'date' => '2025-04-01',
+                'course_id' => null,
+                'order' => 5,
+                'teacher_id' => null,
+            ],
+
+            [
+                'date' => '2025-04-02',
+                'course_id' => null,
+                'order' => 3,
+                'teacher_id' => null,
+            ],
+            [
+                'date' => '2025-04-02',
+                'course_id' => null,
+                'order' => 4,
+                'teacher_id' => null,
+            ],
+            [
+                'date' => '2025-04-02',
+                'course_id' => null,
+                'order' => 5,
+                'teacher_id' => null,
+            ],
+
+            [
+                'date' => '2025-04-03',
+                'course_id' => 3,
+                'order' => 2,
+                'teacher_id' => 2,
+            ]
         ];
 
         foreach ($exceptions as $exception) {
