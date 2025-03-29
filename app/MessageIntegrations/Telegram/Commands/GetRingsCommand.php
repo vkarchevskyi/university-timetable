@@ -27,9 +27,7 @@ final class GetRingsCommand extends Command
         }
 
         $this->replyWithMessage([
-            'text' => empty($content)
-                ? 'Схоже у вас немає дзвінків\\!'
-                : $this->escapeCharactersService->handle($content),
+            'text' => $this->escapeCharactersService->handle($content),
             'parse_mode' => 'MarkdownV2',
         ]);
     }
