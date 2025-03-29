@@ -5,21 +5,24 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Services\Google\SaveGoogleUserDataService;
+use Illuminate\Container\Attributes\Config;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Config;
-use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\GoogleProvider;
 
 final class GoogleAuthController extends Controller
 {
-    public function redirect(): RedirectResponse
+    public function redirect(
+        GoogleProvider $googleProvider,
+        #[Config('services.google.scopes')] array $scopes,
+    ): RedirectResponse
     {
-        return Socialite::driver('google')
+        return $googleProvider
             ->with([
                 'access_type' => 'offline',
                 'prompt' => 'consent',
             ])
-            ->scopes(Config::array('services.google.scopes'))
+            ->scopes($scopes)
             ->redirect();
     }
 

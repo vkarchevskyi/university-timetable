@@ -8,13 +8,15 @@ use Carbon\CarbonImmutable;
 use GeminiAPI\Client;
 use GeminiAPI\GenerationConfig;
 use GeminiAPI\GenerativeModel;
+use Illuminate\Container\Attributes\Config;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\GoogleProvider;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -40,7 +42,14 @@ final class AppServiceProvider extends ServiceProvider
                         ->withTopP($topP)
                         ->withTemperature($temperature)
                         ->withMaxOutputTokens($maxOutputTokens)
-                );
+                )
+        );
+
+        $this->app->singleton(GoogleProvider::class, static function (): GoogleProvider {
+            /** @var GoogleProvider $googleProvider */
+            $googleProvider = Socialite::driver('google');
+
+            return $googleProvider;
         });
     }
 
