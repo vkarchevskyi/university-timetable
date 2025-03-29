@@ -15,23 +15,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  *
  * @property int $id
- * @property string $name
  * @property DayOfWeek $day_of_week
  * @property LessonOrder $order
  * @property bool|null $is_numerator
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property int|null $teacher_id
- * @property-read Teacher|null $teacher
+ * @property int $teacher_id
+ * @property int $course_id
+ * @property-read Course $course
+ * @property-read Teacher $teacher
  * @method static \Database\Factories\LessonFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereCourseId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereDayOfWeek($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereIsNumerator($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereTeacherId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereUpdatedAt($value)
@@ -43,21 +44,28 @@ final class Lesson extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
         'day_of_week',
         'order',
         'is_numerator',
         'teacher_id',
+        'course_id',
     ];
 
     protected $casts = [
         'is_numerator' => 'boolean',
         'order' => LessonOrder::class,
         'day_of_week' => DayOfWeek::class,
+        'teacher_id' => 'integer',
+        'course_id' => 'integer',
     ];
 
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class);
     }
 }
