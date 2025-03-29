@@ -27,6 +27,9 @@ final class TeacherSeeder extends Seeder
             [
                 'name' => 'Сурков К.Ю.',
             ],
+            [
+                'name' => 'Васильковська Ж.В.',
+            ]
         ];
 
         foreach ($teachers as $teacher) {
