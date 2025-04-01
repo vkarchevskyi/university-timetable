@@ -49,15 +49,15 @@ final readonly class GuessDatePeriodService
         }
 
         if (preg_match('/\b(\d{1,2})\.(\d{1,2})\s*[-–]?\s*(\d{1,2})\.(\d{1,2})\b/u', $query, $matches)) {
-            $startDate = $this->createStartDate(month: $matches[2], day: $matches[1]);
-            $endDate = $this->createEndDate(month: $matches[4], day: $matches[3]);
+            $startDate = $this->createStartDate(month: (int)$matches[2], day: (int)$matches[1]);
+            $endDate = $this->createEndDate(month: (int)$matches[4], day: (int)$matches[3]);
 
             return new PeriodData($startDate, $endDate);
         }
 
         if (preg_match('/\b(\d{1,2})\.(\d{1,2})\s*/u', $query, $matches)) {
-            $startDate = $this->createStartDate(month: $matches[2], day: $matches[1]);
-            $endDate = $this->createEndDate(month: $matches[2], day: $matches[1]);
+            $startDate = $this->createStartDate(month: (int)$matches[2], day: (int)$matches[1]);
+            $endDate = $this->createEndDate(month: (int)$matches[2], day: (int)$matches[1]);
 
             return new PeriodData($startDate, $endDate);
         }
@@ -90,13 +90,13 @@ final readonly class GuessDatePeriodService
         return null;
     }
 
-    private function createStartDate(int|string $month, int|string $day): CarbonImmutable
+    private function createStartDate(int $month, int $day): CarbonImmutable
     {
-        return CarbonImmutable::createFromDate((int)$month, (int)$day, timezone: $this->timezone)->startOfDay();
+        return CarbonImmutable::createFromDate(month: $month, day: $day, timezone: $this->timezone)->startOfDay();
     }
 
-    private function createEndDate(int|string $month, int|string $day): CarbonImmutable
+    private function createEndDate(int $month, int $day): CarbonImmutable
     {
-        return CarbonImmutable::createFromDate((int)$month, (int)$day, timezone: $this->timezone)->endOfDay();
+        return CarbonImmutable::createFromDate(month: $month, day: $day, timezone: $this->timezone)->endOfDay();
     }
 }
