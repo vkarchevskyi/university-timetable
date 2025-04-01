@@ -92,11 +92,11 @@ final readonly class GuessDatePeriodService
 
     private function createStartDate(int|string $month, int|string $day): CarbonImmutable
     {
-        return CarbonImmutable::createFromDate($month, $day, $this->timezone)->startOfDay();
+        return CarbonImmutable::createFromDate((int)$month, (int)$day, timezone: $this->timezone)->startOfDay();
     }
 
     private function createEndDate(int|string $month, int|string $day): CarbonImmutable
     {
-        return CarbonImmutable::createFromDate($month, $day, $this->timezone)->endOfDay();
+        return CarbonImmutable::createFromDate((int)$month, (int)$day, timezone: $this->timezone)->endOfDay();
     }
 }
