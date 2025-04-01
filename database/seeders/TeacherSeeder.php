@@ -19,7 +19,7 @@ final class TeacherSeeder extends Seeder
                 'name' => 'Ізвалов О.В.',
             ],
             [
-                'name' => 'Паращук С.Д. ',
+                'name' => 'Паращук С.Д.',
             ],
             [
                 'name' => 'Максимова О.П.',
