@@ -12,6 +12,23 @@ return [
     'switch_to_next_date_since_day' => 6,
     'timezone' => 'Europe/Kyiv',
 
+    'today' => [
+        'сьогодні',
+        'сг',
+        'зараз',
+        'сегодня',
+        'седня',
+        'сейчас',
+        'today',
+        'tdy',
+        'now',
+    ],
+
+    'tomorrow' => [
+        'завтра',
+        'yesterday',
+    ],
+
     'day_of_weeks' => [
         1 => [
             'понеділок',

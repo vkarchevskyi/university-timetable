@@ -8,17 +8,20 @@ use App\DataTransferObjects\PeriodData;
 use App\Services\Lessons\GetCurrentDateService;
 use Carbon\CarbonImmutable;
 use Illuminate\Container\Attributes\Config;
-use Illuminate\Support\Facades\Date;
 
 final readonly class GuessDatePeriodService
 {
     /**
-     * @param array<int, string[]> $dayOfWeeks
+     * @param list<string[]> $dayOfWeeks
+     * @param list<string> $todayAliases
+     * @param list<string> $tomorrowAliases
      */
     public function __construct(
         private GetCurrentDateService $currentDateService,
         #[Config('lessons.timezone')] private string $timezone,
-        #[Config('lessons.day_of_weeks')] private array $dayOfWeeks
+        #[Config('lessons.day_of_weeks')] private array $dayOfWeeks,
+        #[Config('lessons.today')] private array $todayAliases,
+        #[Config('lessons.tomorrow')] private array $tomorrowAliases,
     ) {
     }
 
@@ -36,7 +39,7 @@ final readonly class GuessDatePeriodService
         $query = mb_strtolower(mb_trim($query));
 
         if ($dayOfWeek = $this->getDayOfWeek($query)) {
-            $dateTime = Date::now()->setTimezone($this->timezone)->startOfDay()->toImmutable();
+            $dateTime = CarbonImmutable::now()->setTimezone($this->timezone)->startOfDay();
 
             while ($dateTime->dayOfWeekIso !== $dayOfWeek) {
                 $dateTime = $dateTime->addDay();
@@ -64,9 +67,21 @@ final readonly class GuessDatePeriodService
 
     private function getDayOfWeek(string $query): ?int
     {
+        foreach ($this->tomorrowAliases as $tomorrowAlias) {
+            if (str_contains($query, $tomorrowAlias)) {
+                return CarbonImmutable::now()->addDay()->setTimezone($this->timezone)->startOfDay()->dayOfWeekIso;
+            }
+        }
+
+        foreach ($this->todayAliases as $todayAlias) {
+            if (str_contains($query, $todayAlias)) {
+                return CarbonImmutable::now()->setTimezone($this->timezone)->startOfDay()->dayOfWeekIso;
+            }
+        }
+
         foreach ($this->dayOfWeeks as $dayOfWeekNumber => $dayOfWeekAliases) {
             foreach ($dayOfWeekAliases as $dayOfWeekAlias) {
-                if (str_contains($dayOfWeekAlias, $query)) {
+                if (str_contains($query, $dayOfWeekAlias)) {
                     return $dayOfWeekNumber;
                 }
             }
@@ -77,11 +92,11 @@ final readonly class GuessDatePeriodService
 
     private function createStartDate(int|string $month, int|string $day): CarbonImmutable
     {
-        return Date::createFromDate($month, $day, $this->timezone)->toImmutable()->startOfDay();
+        return CarbonImmutable::createFromDate($month, $day, $this->timezone)->startOfDay();
     }
 
     private function createEndDate(int|string $month, int|string $day): CarbonImmutable
     {
-        return Date::createFromDate($month, $day, $this->timezone)->toImmutable()->endOfDay();
+        return CarbonImmutable::createFromDate($month, $day, $this->timezone)->endOfDay();
     }
 }
