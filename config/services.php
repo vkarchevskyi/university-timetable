@@ -56,7 +56,7 @@ return [
             'top_k' => 40,
             'top_p' => 0.95,
             'temperature' => 1.0,
-            'max_output_tokens' => 3072,
+            'max_output_tokens' => 2048,
         ],
     ],
 ];
