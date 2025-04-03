@@ -8,3 +8,4 @@ Plans for the future:
 * Integration with other messengers
 * Web version of application
 * Public API
+* Multilanguage
