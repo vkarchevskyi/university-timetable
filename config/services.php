@@ -62,5 +62,10 @@ return [
 
     'monobank' => [
         'jar' => env('MONOBANK_JAR'),
+        'base_url' => 'https://api.monobank.ua',
+        'endpoints' => [
+            'currency' => '/bank/currency',
+        ],
+        'cache_ttl' => 60 * 5, // 5 minutes
     ],
 ];
