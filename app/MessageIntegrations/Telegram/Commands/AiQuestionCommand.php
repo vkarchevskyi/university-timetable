@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\MessageIntegrations\Telegram\Commands;
 
-use App\DataTransferObjects\AiTelegramRequestData;
+use App\DataTransferObjects\Telegram\AiTelegramRequestData;
 use App\MessageIntegrations\Telegram\Formats\Gemini\BulletPointGeminiMessageFormat;
 use App\Services\Gemini\SendGeminiRequestService;
 use App\Services\Gemini\Telegram\FormatGeminiMessageService;

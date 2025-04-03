@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Gemini;
 
-use App\DataTransferObjects\AiTelegramRequestData;
+use App\DataTransferObjects\Telegram\AiTelegramRequestData;
 use App\Models\TelegramMessage;
 use GeminiAPI\Enums\Role;
 use GeminiAPI\GenerativeModel;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Lessons\Telegram;
 
-use App\DataTransferObjects\PeriodData;
+use App\DataTransferObjects\Lessons\PeriodData;
 use App\Services\Lessons\GetCurrentDateService;
 use Carbon\CarbonImmutable;
 use Illuminate\Container\Attributes\Config;
