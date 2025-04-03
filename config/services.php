@@ -59,4 +59,8 @@ return [
             'max_output_tokens' => 2048,
         ],
     ],
+
+    'monobank' => [
+        'jar' => env('MONOBANK_JAR'),
+    ],
 ];
