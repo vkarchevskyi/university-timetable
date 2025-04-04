@@ -6,7 +6,7 @@ namespace App\Resource\Monobank;
 
 use Carbon\CarbonImmutable;
 
-final readonly class CurrencyExchangeRateResource
+final readonly class MonobankCurrencyExchangeRateResource
 {
     public function __construct(
         public string $currencyA,
