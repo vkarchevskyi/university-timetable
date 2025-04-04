@@ -6,7 +6,7 @@ namespace App\ViewModel\Banks\Monobank;
 
 use Alcohol\ISO4217;
 use App\DataTransferObjects\Monobank\CurrencyPair;
-use App\Exceptions\Banks\Monobank\MonobankApiError;
+use App\Exceptions\Banks\Monobank\MonobankApiException;
 use App\Resource\Monobank\CurrencyExchangeRateResource;
 use App\ViewModel\Banks\Contract\CurrencyExchangeRatesViewModelContract;
 use Carbon\CarbonImmutable;
@@ -89,7 +89,7 @@ final readonly class MonobankCurrencyExchangeRatesViewModel implements CurrencyE
             $response = Http::baseUrl($this->baseUrl)->get($this->currencyEndpointUrl);
 
             if (!$response->successful()) {
-                throw new MonobankApiError(params: [
+                throw new MonobankApiException(params: [
                     'body' => $response->body(),
                     'code' => $response->status()
                 ]);
