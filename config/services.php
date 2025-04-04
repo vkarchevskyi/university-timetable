@@ -72,4 +72,13 @@ return [
             ['EUR', 'UAH'],
         ],
     ],
+
+    'privatbank' => [
+        'base_url' => 'https://api.privatbank.ua',
+        'endpoints' => [
+            'cash_rate' => '/p24api/pubinfo?json&exchange&coursid=5',
+            'cashless_rate' => '/p24api/pubinfo?exchange&json&coursid=11',
+        ],
+        'cache_ttl' => 60 * 5, // 5 minutes
+    ],
 ];

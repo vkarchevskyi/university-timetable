@@ -2,41 +2,37 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Monobank;
+namespace App\ViewModel\Banks\Monobank;
 
 use Alcohol\ISO4217;
-use App\DataTransferObjects\Monobank\CurrencyPair;
-use App\Resource\Monobank\CurrencyExchangeRateResource;
+use App\DataTransferObjects\Banks\Monobank\CurrencyPair;
+use App\DataTransferObjects\Banks\Monobank\MonobankApiData;
+use App\Repositories\Banks\Monobank\MonobankRepository;
+use App\Resource\Banks\Monobank\MonobankCurrencyExchangeRateResource;
 use Carbon\CarbonImmutable;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
-use RuntimeException;
 
-final readonly class GetCurrencyExchangeRatesService
+final readonly class MonobankCurrencyExchangeRatesViewModel
 {
     /**
      * @param list<array{0: string, 1: string}> $defaultPairs
      */
     public function __construct(
         private ISO4217 $iso4217,
+        private MonobankRepository $monobankRepository,
         #[Config('services.monobank.cache_ttl')] private int $cacheTtl,
-        #[Config('services.monobank.base_url')] private string $baseUrl,
-        #[Config('services.monobank.endpoints.currency')] private string $currencyEndpointUrl,
         #[Config('services.monobank.default_pairs')] private array $defaultPairs,
     ) {
     }
 
     /**
-     * @param Collection<int, CurrencyPair> $pairs
-     * @return Collection<int, CurrencyPair>
+     * @return Collection<int, MonobankCurrencyExchangeRateResource>
      */
-    public function handle(Collection $pairs): Collection
+    public function get(): Collection
     {
-        if ($pairs->isEmpty()) {
-            $pairs = $this->getDefaultPairs();
-        }
+        $pairs = $this->getDefaultPairs();
 
         return Cache::remember($this->getPairsCacheKey($pairs), $this->cacheTtl, function () use ($pairs): Collection {
             $rates = new Collection();
@@ -59,7 +55,7 @@ final readonly class GetCurrencyExchangeRatesService
 
                 if ($containsGroup) {
                     $rates->push(
-                        new CurrencyExchangeRateResource(
+                        new MonobankCurrencyExchangeRateResource(
                             $currencyA,
                             $currencyB,
                             CarbonImmutable::createFromTimestamp($rate->date),
@@ -75,33 +71,21 @@ final readonly class GetCurrencyExchangeRatesService
     }
 
     /**
-     * @return array<int, object{
-     *       currencyCodeA: int,
-     *       currencyCodeB: int,
-     *       date: int,
-     *       rateSell: float|null,
-     *       rateBuy: float|null,
-     *       rateCross: float|null
-     *   }>
-     * @see https://monobank.ua/api-docs/monobank/publichni-dani/get--bank--currency
+     * @return MonobankApiData[]
      */
     private function getApiRates(): array
     {
-        return Cache::remember('mono-currency-rate', $this->cacheTtl, function (): array {
-            $response = Http::baseUrl($this->baseUrl)->get($this->currencyEndpointUrl);
-
-            if (!$response->successful()) {
-                throw new RuntimeException('Could not fetch the data. Status code: ' . $response->status());
-            }
-
-            return json_decode($response->body(), associative: false, flags: JSON_THROW_ON_ERROR);
-        });
+        return Cache::remember(
+            'mono-currency-rate',
+            $this->cacheTtl,
+            fn (): array => $this->monobankRepository->getRates()
+        );
     }
 
     /**
      * @param Collection<int, CurrencyPair> $pairs
      */
-    public function getPairsCacheKey(Collection $pairs): string
+    private function getPairsCacheKey(Collection $pairs): string
     {
         /** @var string $cacheKey */
         $cacheKey = $pairs->reduce(

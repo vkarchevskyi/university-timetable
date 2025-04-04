@@ -16,6 +16,7 @@ final readonly class BulletPointGeminiMessageFormat implements GeminiMessageForm
     {
         return Str::of($message)
             ->replace('*   **', "{$this->symbol} **")
+            ->replace('**', '*')
             ->toString();
     }
 }

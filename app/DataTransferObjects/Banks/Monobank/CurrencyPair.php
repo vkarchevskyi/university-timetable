@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DataTransferObjects\Monobank;
+namespace App\DataTransferObjects\Banks\Monobank;
 
 final readonly class CurrencyPair
 {
