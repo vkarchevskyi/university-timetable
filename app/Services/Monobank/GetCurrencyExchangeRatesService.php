@@ -16,11 +16,15 @@ use RuntimeException;
 
 final readonly class GetCurrencyExchangeRatesService
 {
+    /**
+     * @param list<array{0: string, 1: string}> $defaultPairs
+     */
     public function __construct(
         private ISO4217 $iso4217,
         #[Config('services.monobank.cache_ttl')] private int $cacheTtl,
         #[Config('services.monobank.base_url')] private string $baseUrl,
         #[Config('services.monobank.endpoints.currency')] private string $currencyEndpointUrl,
+        #[Config('services.monobank.default_pairs')] private array $defaultPairs,
     ) {
     }
 
@@ -30,6 +34,10 @@ final readonly class GetCurrencyExchangeRatesService
      */
     public function handle(Collection $pairs): Collection
     {
+        if ($pairs->isEmpty()) {
+            $pairs = $this->getDefaultPairs();
+        }
+
         return Cache::remember($this->getPairsCacheKey($pairs), $this->cacheTtl, function () use ($pairs): Collection {
             $rates = new Collection();
 
@@ -102,5 +110,18 @@ final readonly class GetCurrencyExchangeRatesService
         );
 
         return $cacheKey;
+    }
+
+    /**
+     * @return Collection<int, CurrencyPair>
+     */
+    private function getDefaultPairs(): Collection
+    {
+        $pairs = new Collection();
+        foreach ($this->defaultPairs as $pair) {
+            $pairs->push(new CurrencyPair($pair[0], $pair[1]));
+        }
+
+        return $pairs;
     }
 }

@@ -67,5 +67,9 @@ return [
             'currency' => '/bank/currency',
         ],
         'cache_ttl' => 60 * 5, // 5 minutes
+        'default_pairs' => [
+            ['USD', 'UAH'],
+            ['EUR', 'UAH'],
+        ],
     ],
 ];
