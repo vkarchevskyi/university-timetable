@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Monobank;
+namespace App\ViewModel\Banks\Monobank;
 
 use Alcohol\ISO4217;
 use App\DataTransferObjects\Monobank\CurrencyPair;
+use App\Exceptions\Banks\Monobank\MonobankApiError;
 use App\Resource\Monobank\CurrencyExchangeRateResource;
+use App\ViewModel\Banks\Contract\CurrencyExchangeRatesViewModelContract;
 use Carbon\CarbonImmutable;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use RuntimeException;
 
-final readonly class GetCurrencyExchangeRatesService
+final readonly class MonobankCurrencyExchangeRatesViewModel implements CurrencyExchangeRatesViewModelContract
 {
     /**
      * @param list<array{0: string, 1: string}> $defaultPairs
@@ -29,14 +30,11 @@ final readonly class GetCurrencyExchangeRatesService
     }
 
     /**
-     * @param Collection<int, CurrencyPair> $pairs
-     * @return Collection<int, CurrencyPair>
+     * @inheritDoc
      */
-    public function handle(Collection $pairs): Collection
+    public function get(): Collection
     {
-        if ($pairs->isEmpty()) {
-            $pairs = $this->getDefaultPairs();
-        }
+        $pairs = $this->getDefaultPairs();
 
         return Cache::remember($this->getPairsCacheKey($pairs), $this->cacheTtl, function () use ($pairs): Collection {
             $rates = new Collection();
@@ -91,7 +89,10 @@ final readonly class GetCurrencyExchangeRatesService
             $response = Http::baseUrl($this->baseUrl)->get($this->currencyEndpointUrl);
 
             if (!$response->successful()) {
-                throw new RuntimeException('Could not fetch the data. Status code: ' . $response->status());
+                throw new MonobankApiError(params: [
+                    'body' => $response->body(),
+                    'code' => $response->status()
+                ]);
             }
 
             return json_decode($response->body(), associative: false, flags: JSON_THROW_ON_ERROR);
@@ -101,7 +102,7 @@ final readonly class GetCurrencyExchangeRatesService
     /**
      * @param Collection<int, CurrencyPair> $pairs
      */
-    public function getPairsCacheKey(Collection $pairs): string
+    private function getPairsCacheKey(Collection $pairs): string
     {
         /** @var string $cacheKey */
         $cacheKey = $pairs->reduce(
