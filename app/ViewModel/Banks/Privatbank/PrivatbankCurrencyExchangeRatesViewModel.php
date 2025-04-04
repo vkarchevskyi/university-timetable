@@ -6,8 +6,8 @@ namespace App\ViewModel\Banks\Privatbank;
 
 use App\DataTransferObjects\Banks\Privatbank\PrivatbankApiData;
 use App\Repositories\Banks\Privatbank\PrivatbankRepository;
+use App\Resource\Banks\Privatbank\PrivatbankCurrencyExchangeRateResource;
 use App\Resource\Banks\Privatbank\PrivatbankCurrencyExchangeRateResource as RateResource;
-use App\Resource\Banks\Privatbank\PrivatbankCurrencyExchangeRatesResource;
 use Closure;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Collection;
@@ -21,13 +21,14 @@ final readonly class PrivatbankCurrencyExchangeRatesViewModel
     ) {
     }
 
-    public function get(): PrivatbankCurrencyExchangeRatesResource
+    /**
+     * @return Collection<int, PrivatbankCurrencyExchangeRateResource>
+     */
+    public function get(bool $cashRate): Collection
     {
-        $adapter = $this->getApiDataAdapterClosure();
-        $cashRate = array_map($adapter, $this->getApiRates(cashRate: true));
-        $cashlessRate = array_map($adapter, $this->getApiRates(cashRate: false));
+        $rate = array_map($this->getApiDataAdapterClosure(), $this->getApiRates(cashRate: $cashRate));
 
-        return new PrivatbankCurrencyExchangeRatesResource(new Collection($cashRate), new Collection($cashlessRate));
+        return new Collection($rate);
     }
 
     /**
