@@ -6,8 +6,8 @@ namespace App\ViewModel\Banks\Privatbank;
 
 use App\DataTransferObjects\Banks\Privatbank\PrivatbankApiData;
 use App\Repositories\Banks\Privatbank\PrivatbankRepository;
-use App\Resource\Privatbank\PrivatbankCurrencyExchangeRateResource as RateResource;
-use App\Resource\Privatbank\PrivatbankCurrencyExchangeRatesResource;
+use App\Resource\Banks\Privatbank\PrivatbankCurrencyExchangeRateResource as RateResource;
+use App\Resource\Banks\Privatbank\PrivatbankCurrencyExchangeRatesResource;
 use Closure;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Collection;

@@ -8,7 +8,7 @@ use Alcohol\ISO4217;
 use App\DataTransferObjects\Banks\Monobank\CurrencyPair;
 use App\DataTransferObjects\Banks\Monobank\MonobankApiData;
 use App\Repositories\Banks\Monobank\MonobankRepository;
-use App\Resource\Monobank\MonobankCurrencyExchangeRateResource;
+use App\Resource\Banks\Monobank\MonobankCurrencyExchangeRateResource;
 use Carbon\CarbonImmutable;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Collection;

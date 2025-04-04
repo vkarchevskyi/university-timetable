@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Resource\Privatbank;
+namespace App\Resource\Banks\Privatbank;
 
 use Illuminate\Support\Collection;
 

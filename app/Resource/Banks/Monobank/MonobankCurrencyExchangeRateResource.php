@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Resource\Privatbank;
+namespace App\Resource\Banks\Monobank;
 
-final readonly class PrivatbankCurrencyExchangeRateResource
+use Carbon\CarbonImmutable;
+
+final readonly class MonobankCurrencyExchangeRateResource
 {
     public function __construct(
         public string $currencyA,
         public string $currencyB,
+        public CarbonImmutable $dateTime,
         public float $rateSell,
         public float $rateBuy,
     ) {

@@ -43,9 +43,9 @@ final readonly class MonobankRepository
                 $rate->currencyCodeA,
                 $rate->currencyCodeB,
                 $rate->date,
-                $rate->rateSell,
-                $rate->rateBuy,
-                $rate->rateCross,
+                $rate->rateSell ?? null,
+                $rate->rateBuy ?? null,
+                $rate->rateCross ?? null,
             ),
             json_decode($response->body(), flags: JSON_THROW_ON_ERROR)
         );
