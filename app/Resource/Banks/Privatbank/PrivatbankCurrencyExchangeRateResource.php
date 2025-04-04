@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Resource\Banks\Privatbank;
 
-final readonly class PrivatbankCurrencyExchangeRateResource
+use App\Interfaces\Resource\Banks\CurrencyExchangeRateResourceInterface;
+
+final readonly class PrivatbankCurrencyExchangeRateResource implements CurrencyExchangeRateResourceInterface
 {
     public function __construct(
         public string $currencyA,
@@ -12,5 +14,20 @@ final readonly class PrivatbankCurrencyExchangeRateResource
         public float $rateSell,
         public float $rateBuy,
     ) {
+    }
+
+    public function getMainCurrency(): string
+    {
+        return $this->currencyA;
+    }
+
+    public function getRateSell(): float
+    {
+        return $this->rateSell;
+    }
+
+    public function getRateBuy(): float
+    {
+        return $this->rateBuy;
     }
 }
