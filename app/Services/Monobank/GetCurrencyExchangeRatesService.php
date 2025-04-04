@@ -30,73 +30,70 @@ final readonly class GetCurrencyExchangeRatesService
      */
     public function handle(Collection $pairs): Collection
     {
-        return Cache::remember(
-            $this->getPairsCacheKey($pairs),
-            $this->cacheTtl,
-            static function () use ($pairs): Collection {
-                $rates = new Collection();
-                foreach ($this->getApiRates() as $rate) {
-                    if (empty($rate->rateSell) || empty($rate->rateBuy)) {
-                        continue;
-                    }
+        return Cache::remember($this->getPairsCacheKey($pairs), $this->cacheTtl, function () use ($pairs): Collection {
+            $rates = new Collection();
 
-                    /** @var string $currencyA */
-                    $currencyA = $this->iso4217->getByCode("{$rate->currencyCodeA}")['name'];
-                    /** @var string $currencyB */
-                    $currencyB = $this->iso4217->getByCode("{$rate->currencyCodeB}")['name'];
-
-                    $containsGroup = $pairs->containsStrict(
-                        static function (CurrencyPair $pair) use ($currencyA, $currencyB): bool {
-                            return $pair->currencyA === $currencyA && $pair->currencyB === $currencyB;
-                        }
-                    );
-
-                    if ($containsGroup) {
-                        $rates->push(
-                            new CurrencyExchangeRateResource(
-                                $currencyA,
-                                $currencyB,
-                                CarbonImmutable::createFromTimestamp($rate->date),
-                                $rate->rateSell,
-                                $rate->rateBuy
-                            )
-                        );
-                    }
+            foreach ($this->getApiRates() as $rate) {
+                if (empty($rate->rateSell) || empty($rate->rateBuy)) {
+                    continue;
                 }
 
-                return $rates;
+                /** @var string $currencyA */
+                $currencyA = $this->iso4217->getByCode("$rate->currencyCodeA")['alpha3'];
+                /** @var string $currencyB */
+                $currencyB = $this->iso4217->getByCode("$rate->currencyCodeB")['alpha3'];
+
+                $containsGroup = $pairs->containsStrict(
+                    static function (CurrencyPair $pair) use ($currencyA, $currencyB): bool {
+                        return $pair->currencyA === $currencyA && $pair->currencyB === $currencyB;
+                    }
+                );
+
+                if ($containsGroup) {
+                    $rates->push(
+                        new CurrencyExchangeRateResource(
+                            $currencyA,
+                            $currencyB,
+                            CarbonImmutable::createFromTimestamp($rate->date),
+                            $rate->rateSell,
+                            $rate->rateBuy
+                        )
+                    );
+                }
             }
-        );
+
+            return $rates;
+        });
     }
 
     /**
-     * @return object{
-     *      currencyCodeA: int,
-     *      currencyCodeB: int,
-     *      date: int,
-     *      rateSell: float|null,
-     *      rateBuy: float|null,
-     *      rateCross: float|null
-     *  }
+     * @return array<int, object{
+     *       currencyCodeA: int,
+     *       currencyCodeB: int,
+     *       date: int,
+     *       rateSell: float|null,
+     *       rateBuy: float|null,
+     *       rateCross: float|null
+     *   }>
      * @see https://monobank.ua/api-docs/monobank/publichni-dani/get--bank--currency
      */
-    private function getApiRates(): object
+    private function getApiRates(): array
     {
-        return Cache::remember('mono-currency-rate', $this->cacheTtl, static function (): Collection {
+        return Cache::remember('mono-currency-rate', $this->cacheTtl, function (): array {
             $response = Http::baseUrl($this->baseUrl)->get($this->currencyEndpointUrl);
 
             if (!$response->successful()) {
                 throw new RuntimeException('Could not fetch the data. Status code: ' . $response->status());
             }
 
-            return json_decode($response->body(), flags: JSON_THROW_ON_ERROR);
+            return json_decode($response->body(), associative: false, flags: JSON_THROW_ON_ERROR);
         });
     }
 
     /**
      * @param Collection<int, CurrencyPair> $pairs
      */
-    private function getPairsCacheKey(Collection $pairs): string
+    public function getPairsCacheKey(Collection $pairs): string
     {
         /** @var string $cacheKey */
         $cacheKey = $pairs->reduce(
