@@ -13,7 +13,7 @@ class PrivatbankApiException extends BusinessException
      * @param array<string, string> $params
      */
     public function __construct(
-        string $message = 'exceptions.monobank.api.error',
+        string $message = 'exceptions.privatbank.api.error',
         array $params = [],
         int $code = 0,
         ?Throwable $previous = null
