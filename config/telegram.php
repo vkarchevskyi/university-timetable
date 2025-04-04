@@ -47,6 +47,7 @@ return [
                 App\MessageIntegrations\Telegram\Commands\GetRingsCommand::class,
                 App\MessageIntegrations\Telegram\Commands\AiQuestionCommand::class,
                 App\MessageIntegrations\Telegram\Commands\DonateCommand::class,
+                App\MessageIntegrations\Telegram\Commands\CurrencyExchangeRateCommand::class,
             ],
         ],
 
