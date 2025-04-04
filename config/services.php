@@ -66,7 +66,7 @@ return [
         'endpoints' => [
             'currency' => '/bank/currency',
         ],
-        'cache_ttl' => 60 * 5, // 5 minutes
+        'cache_ttl' => 60 * 60, // 1 hour
         'default_pairs' => [
             ['USD', 'UAH'],
             ['EUR', 'UAH'],
@@ -79,6 +79,6 @@ return [
             'cash_rate' => '/p24api/pubinfo?json&exchange&coursid=5',
             'cashless_rate' => '/p24api/pubinfo?exchange&json&coursid=11',
         ],
-        'cache_ttl' => 60 * 5, // 5 minutes
+        'cache_ttl' => 60 * 60, // 1 hour
     ],
 ];
