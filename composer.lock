@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "628a8bcd7fb6318c6beb779d0551923d",
+    "content-hash": "520c4b68656463614cd5607c2e9b4695",
     "packages": [
         {
             "name": "alcohol/iso4217",
@@ -2232,6 +2232,57 @@
                 "source": "https://github.com/irazasyed/telegram-bot-sdk/tree/v3.15.0"
             },
             "time": "2025-02-18T19:03:24+00:00"
+        },
+        {
+            "name": "kba-team/markdown-table",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/the-kbA-team/markdown-table.git",
+                "reference": "b92f61045c60a349ba8935037eb0d81c4b2f2816"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/the-kbA-team/markdown-table/zipball/b92f61045c60a349ba8935037eb0d81c4b2f2816",
+                "reference": "b92f61045c60a349ba8935037eb0d81c4b2f2816",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "^7.1||^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "kbATeam\\MarkdownTable\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gregor J.",
+                    "email": "gregor-j@users.noreply.github.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "Create a markdown table string from an associative array.",
+            "keywords": [
+                "array",
+                "markdown",
+                "markdown-table",
+                "table"
+            ],
+            "support": {
+                "issues": "https://github.com/the-kbA-team/markdown-table/issues",
+                "source": "https://github.com/the-kbA-team/markdown-table/tree/v1.1.2"
+            },
+            "time": "2022-05-18T15:23:05+00:00"
         },
         {
             "name": "kirschbaum-development/eloquent-power-joins",
