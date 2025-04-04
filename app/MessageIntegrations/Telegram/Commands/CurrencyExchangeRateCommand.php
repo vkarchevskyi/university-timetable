@@ -14,7 +14,7 @@ final class CurrencyExchangeRateCommand extends Command
 {
     protected string $name = 'currency';
 
-    protected string $description = 'Отримати розклад валют';
+    protected string $description = 'Отримати курс валют';
 
     public function __construct(
         private readonly EscapeCharactersService $escapeCharactersService,
