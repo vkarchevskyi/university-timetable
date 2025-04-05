@@ -8078,16 +8078,16 @@
         },
         {
             "name": "vkarchevskyi/sinoptik.ua-parser",
-            "version": "v1.0.3",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/vkarchevskyi/sinoptik.ua-parser.git",
-                "reference": "953c63fe18002d2c004301160929006f72618974"
+                "url": "https://github.com/vkarchevskyi/sinoptik-scraper.git",
+                "reference": "0757a511230d12579947094d18487652623d7ca4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vkarchevskyi/sinoptik.ua-parser/zipball/953c63fe18002d2c004301160929006f72618974",
-                "reference": "953c63fe18002d2c004301160929006f72618974",
+                "url": "https://api.github.com/repos/vkarchevskyi/sinoptik-scraper/zipball/0757a511230d12579947094d18487652623d7ca4",
+                "reference": "0757a511230d12579947094d18487652623d7ca4",
                 "shasum": ""
             },
             "require": {
@@ -8119,10 +8119,10 @@
             ],
             "description": "Parser of sinoptik.ua website",
             "support": {
-                "issues": "https://github.com/vkarchevskyi/sinoptik.ua-parser/issues",
-                "source": "https://github.com/vkarchevskyi/sinoptik.ua-parser/tree/v1.0.3"
+                "issues": "https://github.com/vkarchevskyi/sinoptik-scraper/issues",
+                "source": "https://github.com/vkarchevskyi/sinoptik-scraper/tree/v1.0.5"
             },
-            "time": "2025-04-05T11:31:43+00:00"
+            "time": "2025-04-05T12:23:44+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
