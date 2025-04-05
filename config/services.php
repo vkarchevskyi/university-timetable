@@ -81,4 +81,15 @@ return [
         ],
         'cache_ttl' => 60 * 60, // 1 hour
     ],
+
+    'sinoptik' => [
+        'default_city' => 'kropyvnytskyi',
+
+        'hide' => [
+            'pressure',
+            'humidity',
+            'wind',
+            'precipitationProbability',
+        ],
+    ],
 ];

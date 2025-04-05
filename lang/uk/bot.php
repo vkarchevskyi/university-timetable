@@ -17,4 +17,13 @@ return [
         'cash' => 'Готівковий',
         'cashless' => 'Безготівковий',
     ],
+
+    'weather' => [
+        'temperature' => 'Температура, °C',
+        'feelsLike' => 'Відчувається як',
+        'pressure' => 'Тиск, мм',
+        'humidity' => 'Вологість, %',
+        'wind' => 'Вітер, м/с',
+        'precipitationProbability' => 'Ймовірність опадів, %',
+    ],
 ];
