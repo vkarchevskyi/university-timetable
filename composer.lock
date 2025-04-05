@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "11383af0823dd114b804da8b647ae9de",
+    "content-hash": "5955aedfcd2cb749ffcdde2b10c2de92",
     "packages": [
         {
             "name": "alcohol/iso4217",
@@ -133,6 +133,49 @@
                 "source": "https://github.com/AnourValar/eloquent-serialize/tree/1.3.0"
             },
             "time": "2025-03-22T08:49:12+00:00"
+        },
+        {
+            "name": "ashtokalo/php-translit",
+            "version": "0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ashtokalo/php-translit.git",
+                "reference": "f98603558c29bf713fe12c105679771b4b65abcf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ashtokalo/php-translit/zipball/f98603558c29bf713fe12c105679771b4b65abcf",
+                "reference": "f98603558c29bf713fe12c105679771b4b65abcf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ashtokalo\\translit\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP library to convert text from one script to another.",
+            "keywords": [
+                "latinization",
+                "romanization",
+                "translit",
+                "transliteration"
+            ],
+            "support": {
+                "issues": "https://github.com/ashtokalo/php-translit/issues",
+                "source": "https://github.com/ashtokalo/php-translit/tree/0.3.0"
+            },
+            "time": "2024-03-01T19:44:54+00:00"
         },
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -8078,16 +8121,16 @@
         },
         {
             "name": "vkarchevskyi/sinoptik.ua-parser",
-            "version": "v1.0.5",
+            "version": "v1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vkarchevskyi/sinoptik-scraper.git",
-                "reference": "0757a511230d12579947094d18487652623d7ca4"
+                "reference": "d58d97f6746841397ad97d040704405c207d8fb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vkarchevskyi/sinoptik-scraper/zipball/0757a511230d12579947094d18487652623d7ca4",
-                "reference": "0757a511230d12579947094d18487652623d7ca4",
+                "url": "https://api.github.com/repos/vkarchevskyi/sinoptik-scraper/zipball/d58d97f6746841397ad97d040704405c207d8fb5",
+                "reference": "d58d97f6746841397ad97d040704405c207d8fb5",
                 "shasum": ""
             },
             "require": {
@@ -8120,9 +8163,9 @@
             "description": "Parser of sinoptik.ua website",
             "support": {
                 "issues": "https://github.com/vkarchevskyi/sinoptik-scraper/issues",
-                "source": "https://github.com/vkarchevskyi/sinoptik-scraper/tree/v1.0.5"
+                "source": "https://github.com/vkarchevskyi/sinoptik-scraper/tree/v1.0.8"
             },
-            "time": "2025-04-05T12:23:44+00:00"
+            "time": "2025-04-05T18:31:54+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

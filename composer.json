@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.4",
         "alcohol/iso4217": "^4.2",
+        "ashtokalo/php-translit": "^0.3.0",
         "filament/filament": "^3.2",
         "gemini-api-php/client": "^1.7",
         "irazasyed/telegram-bot-sdk": "^3.15",
