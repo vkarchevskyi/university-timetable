@@ -5,48 +5,29 @@ declare(strict_types=1);
 namespace App\Repositories\Assignments\GoogleClassroom;
 
 use App\DataTransferObjects\Assignments\GoogleClassroom\CourseData;
-use App\Exceptions\Assignments\GoogleClassroom\AuthenticationException;
-use App\Models\User;
-use Illuminate\Container\Attributes\Config;
+use App\Exceptions\Assignments\GoogleClassroom\ApiAuthenticationException;
+use App\Exceptions\Assignments\GoogleClassroom\ApiException;
 use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Http\Client\Factory;
 use JsonException;
-use RuntimeException;
 
-final readonly class GoogleClassroomCoursesRepository
+final readonly class GoogleClassroomCoursesRepository extends AbstractGoogleClassroomRepository
 {
-    public function __construct(
-        private Factory $http,
-        #[Config('services.google.classroom.endpoints.courses.list')]
-        private string $courseListUrl
-    ) {
-    }
-
     /**
      * @return list<CourseData>
      * @throws ConnectionException
      * @throws JsonException
-     * @throws AuthenticationException
-     * @throws RuntimeException
+     * @throws ApiAuthenticationException
+     * @throws ApiException
      */
     public function list(): array
     {
-        $user = User::googleServiceAccount()->firstOrFail();
+        $user = $this->getUser();
 
         $response = $this->http
             ->withToken($user->google_token)
-            ->get($this->courseListUrl);
+            ->get('https://classroom.googleapis.com/v1/courses');
 
-        if ($response->status() === 401) {
-            /** @var object{code: int, message: string, status: string} $errorData */
-            $errorData = json_decode($response->body(), flags: JSON_THROW_ON_ERROR)->error;
-
-            throw new AuthenticationException($errorData->message, $errorData->code);
-        }
-
-        if (!$response->successful()) {
-            throw new RuntimeException("Unsuccessful request. Status 200 expected, {$response->status()} received");
-        }
+        $this->checkResponseStatus($response);
 
         /** @var array<int, object> $coursesData */
         $coursesData = json_decode($response->body(), flags: JSON_THROW_ON_ERROR)->courses;

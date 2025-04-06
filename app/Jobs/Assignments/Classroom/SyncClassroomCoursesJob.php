@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Jobs\Assignments\Classroom;
 
 use App\Actions\Assignments\GoogleClassroom\SyncClassroomCoursesAction;
-use App\Exceptions\Assignments\GoogleClassroom\AuthenticationException;
+use App\Exceptions\Assignments\GoogleClassroom\ApiAuthenticationException;
 use App\Jobs\Google\RefreshAuthTokenJob;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -49,7 +49,7 @@ final class SyncClassroomCoursesJob implements ShouldQueue
     {
         try {
             $syncClassroomCoursesAction->handle();
-        } catch (AuthenticationException) {
+        } catch (ApiAuthenticationException) {
             RefreshAuthTokenJob::dispatchSync();
             $this->release(3);
         }
