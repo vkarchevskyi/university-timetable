@@ -6,6 +6,6 @@ namespace App\Exceptions\Assignments\GoogleClassroom;
 
 use App\Exceptions\BusinessException;
 
-final class AuthenticationException extends BusinessException
+final class ApiAuthenticationException extends BusinessException
 {
 }
