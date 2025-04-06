@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Config;
 
-final class RefreshAuthTokenJob implements ShouldQueue, ShouldBeUnique
+final class RefreshAuthTokenJob implements ShouldBeUnique, ShouldQueue
 {
     use Queueable;
 
