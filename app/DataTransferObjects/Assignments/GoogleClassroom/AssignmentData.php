@@ -14,8 +14,10 @@ final readonly class AssignmentData
         public string $state,
         public string $alternateLink,
         public ?int $maxPoints,
-        public ?string $dueDate,
-        public ?string $dueTime,
+        /** @see https://developers.google.com/classroom/reference/rest/v1/Date */
+        public ?object $dueDate,
+        /** @see https://developers.google.com/classroom/reference/rest/v1/TimeOfDay */
+        public ?object $dueTime,
         public string $workType,
         public string $assigneeMode,
     ) {
