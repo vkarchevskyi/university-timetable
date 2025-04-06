@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Actions\Assignments\GoogleClassroom;
 
-use App\Exceptions\Assignments\GoogleClassroom\AuthenticationException;
+use App\Exceptions\Assignments\GoogleClassroom\ApiAuthenticationException;
+use App\Exceptions\Assignments\GoogleClassroom\ApiException;
 use App\Models\ClassroomCourse;
 use App\Repositories\Assignments\GoogleClassroom\GoogleClassroomCoursesRepository;
 use Illuminate\Http\Client\ConnectionException;
 use JsonException;
-use RuntimeException;
 
 final readonly class SyncClassroomCoursesAction
 {
@@ -20,8 +20,8 @@ final readonly class SyncClassroomCoursesAction
     /**
      * @throws ConnectionException
      * @throws JsonException
-     * @throws AuthenticationException
-     * @throws RuntimeException
+     * @throws ApiAuthenticationException
+     * @throws ApiException
      */
     public function handle(): void
     {
