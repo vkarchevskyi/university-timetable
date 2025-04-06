@@ -7,10 +7,10 @@ namespace App\Exceptions\Banks\Privatbank;
 use App\Exceptions\BusinessException;
 use Throwable;
 
-class PrivatbankApiException extends BusinessException
+final class PrivatbankApiException extends BusinessException
 {
     /**
-     * @param array<string, string> $params
+     * @param array<string, int|string> $params
      */
     public function __construct(
         string $message = 'exceptions.privatbank.api.error',

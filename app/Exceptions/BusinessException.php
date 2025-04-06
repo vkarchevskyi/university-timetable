@@ -7,7 +7,7 @@ namespace App\Exceptions;
 use RuntimeException;
 use Throwable;
 
-class BusinessException extends RuntimeException
+abstract class BusinessException extends RuntimeException
 {
     public function __construct(string $message = '', int $code = 0, ?Throwable $previous = null)
     {

@@ -41,12 +41,16 @@ final readonly class PrivatbankRepository
         }
 
         return array_map(
-            static fn (object $rate): PrivatbankApiData => new PrivatbankApiData(
-                $rate->ccy,
-                $rate->base_ccy,
-                (float)$rate->buy,
-                (float)$rate->sale,
-            ),
+            static function (object $rate): PrivatbankApiData {
+                /** @var object{ ccy: string, base_ccy: string, buy: numeric-string, sale: numeric-string } $rate */
+
+                return new PrivatbankApiData(
+                    $rate->ccy,
+                    $rate->base_ccy,
+                    (float)$rate->buy,
+                    (float)$rate->sale,
+                );
+            },
             json_decode($response->body(), flags: JSON_THROW_ON_ERROR)
         );
     }

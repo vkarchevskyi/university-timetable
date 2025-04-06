@@ -54,7 +54,10 @@ final readonly class PrivatbankCurrencyExchangeRatesViewModel
     private function getApiDataAdapterClosure(): Closure
     {
         return static fn (PrivatbankApiData $apiData): RateResource => new RateResource(
-            $apiData->ccy, $apiData->baseCcy, $apiData->buy, $apiData->sale
+            $apiData->ccy,
+            $apiData->baseCcy,
+            $apiData->buy,
+            $apiData->sale
         );
     }
 }

@@ -7,7 +7,7 @@ namespace App\Exceptions\Banks\Monobank;
 use App\Exceptions\BusinessException;
 use Throwable;
 
-class MonobankApiException extends BusinessException
+final class MonobankApiException extends BusinessException
 {
     /**
      * @param array<string, string> $params
