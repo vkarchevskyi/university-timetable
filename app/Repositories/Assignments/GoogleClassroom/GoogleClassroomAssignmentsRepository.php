@@ -33,8 +33,8 @@ final readonly class GoogleClassroomAssignmentsRepository extends AbstractGoogle
 
         $this->checkResponseStatus($response);
 
-        /** @var array<int, object> $assignmentsData */
-        $assignmentsData = json_decode($response->body(), flags: JSON_THROW_ON_ERROR)->courseWork;
+        /** @var object{courseWork: array<int, object>|null} $responseBody */
+        $responseBody = json_decode($response->body(), flags: JSON_THROW_ON_ERROR);
         /** @var list<AssignmentData> $assignments */
         $assignments = [];
 
@@ -53,7 +53,7 @@ final readonly class GoogleClassroomAssignmentsRepository extends AbstractGoogle
          *      assigneeMode: string,
          *  } $assignment
          */
-        foreach ($assignmentsData as $assignment) {
+        foreach ($responseBody->courseWork ?? [] as $assignment) {
             $assignments[] = new AssignmentData(
                 $assignment->id,
                 $assignment->title,

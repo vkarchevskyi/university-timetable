@@ -50,11 +50,11 @@ final readonly class SyncClassroomAssignmentAction
                 'stop_date_sync' => false,
                 'classroom_id' => $assignment->classroomId,
                 'description' => $assignment->description,
-                'materials' => $assignment->materials,
+                'materials' => json_encode($assignment->materials, JSON_THROW_ON_ERROR),
                 'state' => $assignment->state,
                 'alternate_link' => $assignment->alternateLink,
                 'max_points' => $assignment->maxPoints,
-                'due_datetime' => $dueDatetime,
+                'due_datetime' => $dueDatetime?->format('Y-m-d H:i:s'),
                 'work_type' => $assignment->workType,
                 'assignee_mode' => $assignment->assigneeMode,
             ];
