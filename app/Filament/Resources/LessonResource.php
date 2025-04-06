@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Enums\DayOfWeek;
+use App\Enums\Shared\DayOfWeek;
 use App\Filament\Resources\LessonResource\Pages;
 use App\Models\Lesson;
 use Filament\Forms;

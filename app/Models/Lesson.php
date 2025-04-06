@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\DayOfWeek;
-use App\Enums\LessonOrder;
+use App\Enums\Lessons\LessonOrder;
+use App\Enums\Shared\DayOfWeek;
 use Database\Factories\LessonFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

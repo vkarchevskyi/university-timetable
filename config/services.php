@@ -49,6 +49,12 @@ return [
 
         'classroom' => [
             'email' => env('GOOGLE_CLASSROOM_USER_EMAIL'),
+
+            'endpoints' => [
+                'courses' => [
+                    'list' => 'https://classroom.googleapis.com/v1/courses',
+                ],
+            ],
         ],
         'gemini' => [
             'api_key' => env('GEMINI_APP_KEY'),
