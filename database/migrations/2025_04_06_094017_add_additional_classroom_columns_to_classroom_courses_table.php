@@ -14,7 +14,7 @@ return new class () extends Migration {
     {
         Schema::table('classroom_courses', function (Blueprint $table) {
             $table->string('owner_id');
-            $table->string('classroom_id')->index();
+            $table->string('classroom_id')->unique();
             $table->enum('course_state', [
                 'COURSE_STATE_UNSPECIFIED',
                 'ACTIVE',
