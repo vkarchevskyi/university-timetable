@@ -14,6 +14,12 @@ return new class () extends Migration {
     {
         Schema::table('classroom_assignments', function (Blueprint $table) {
             $table->dropColumn(['content', 'start', 'end']);
+            $table->dropForeign(['classroom_course_id']);
+            $table->foreign('classroom_course_id')
+                ->references('id')
+                ->on('classroom_courses')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
 
             $table->string('classroom_id')->unique();
             $table->string('title', 3000)->change();
@@ -52,6 +58,13 @@ return new class () extends Migration {
             $table->timestamp('start');
             $table->timestamp('end')->nullable();
             $table->string('title')->change();
+
+            $table->dropForeign(['classroom_course_id']);
+            $table->foreign('classroom_course_id')
+                ->references('id')
+                ->on('courses')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
 
             $table->dropUnique(['classroom_id']);
             $table->dropIndex(['assignee_mode']);
