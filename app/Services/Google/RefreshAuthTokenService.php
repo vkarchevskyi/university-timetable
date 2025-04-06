@@ -5,21 +5,18 @@ declare(strict_types=1);
 namespace App\Services\Google;
 
 use App\Models\User;
-use Illuminate\Container\Attributes\Config;
 use Laravel\Socialite\Two\GoogleProvider;
 use RuntimeException;
 
 final readonly class RefreshAuthTokenService
 {
-    public function __construct(
-        private GoogleProvider $googleProvider,
-        #[Config('services.google.classroom.email')] private string $serviceEmail
-    ) {
+    public function __construct(private GoogleProvider $googleProvider)
+    {
     }
 
     public function handle(): void
     {
-        $user = User::whereEmail($this->serviceEmail)->firstOrFail();
+        $user = User::googleServiceAccount()->firstOrFail();
         if (is_null($user->google_refresh_token)) {
             throw new RuntimeException("Service User doesn't have google refresh token");
         }

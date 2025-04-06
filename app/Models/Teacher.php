@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @method static \Database\Factories\TeacherFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Teacher newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Teacher newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Teacher query()
@@ -21,7 +22,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Teacher whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Teacher whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Teacher whereUpdatedAt($value)
- * @method static \Database\Factories\TeacherFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 final class Teacher extends Model
