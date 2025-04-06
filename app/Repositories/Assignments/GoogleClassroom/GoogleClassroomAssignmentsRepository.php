@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\Assignments\GoogleClassroom;
 
 use App\DataTransferObjects\Assignments\GoogleClassroom\AssignmentData;
-use App\DataTransferObjects\Assignments\GoogleClassroom\CourseData;
 use App\Enums\Assignments\GoogleClassroom\AssigneeMode;
 use App\Enums\Assignments\GoogleClassroom\CourseWorkState;
 use App\Exceptions\Assignments\GoogleClassroom\ApiAuthenticationException;
@@ -36,7 +35,7 @@ final readonly class GoogleClassroomAssignmentsRepository extends AbstractGoogle
 
         /** @var array<int, object> $assignmentsData */
         $assignmentsData = json_decode($response->body(), flags: JSON_THROW_ON_ERROR)->courseWork;
-        /** @var list<CourseData> $assignments */
+        /** @var list<AssignmentData> $assignments */
         $assignments = [];
 
         /**

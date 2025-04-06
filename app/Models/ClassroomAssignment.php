@@ -81,6 +81,10 @@ final class ClassroomAssignment extends Model
         'assignee_mode' => AssigneeMode::class,
     ];
 
+    protected $attributes = [
+        'stop_date_sync' => false,
+    ];
+
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('state', CourseWorkState::PUBLISHED);
