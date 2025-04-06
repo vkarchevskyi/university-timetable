@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\MessageIntegrations\Telegram\Commands;
 
-use App\Enums\LessonOrder;
+use App\Enums\Lessons\LessonOrder;
 use App\Services\Lessons\Telegram\EscapeCharactersService;
 use Telegram\Bot\Commands\Command;
 

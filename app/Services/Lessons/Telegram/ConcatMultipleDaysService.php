@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Lessons\Telegram;
 
-use App\Enums\DayOfWeek;
+use App\Enums\Shared\DayOfWeek;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 
