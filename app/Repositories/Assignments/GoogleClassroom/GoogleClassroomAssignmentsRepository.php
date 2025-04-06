@@ -6,6 +6,7 @@ namespace App\Repositories\Assignments\GoogleClassroom;
 
 use App\DataTransferObjects\Assignments\GoogleClassroom\AssignmentData;
 use App\DataTransferObjects\Assignments\GoogleClassroom\CourseData;
+use App\Enums\Assignments\GoogleClassroom\AssigneeMode;
 use App\Enums\Assignments\GoogleClassroom\CourseWorkState;
 use App\Exceptions\Assignments\GoogleClassroom\ApiAuthenticationException;
 use App\Exceptions\Assignments\GoogleClassroom\ApiException;
@@ -27,7 +28,7 @@ final readonly class GoogleClassroomAssignmentsRepository extends AbstractGoogle
         $response = $this->http
             ->withToken($user->google_token)
             ->withQueryParameters([
-                'courseWorkStates' => [CourseWorkState::PUBLISHED->value]
+                'courseWorkStates' => CourseWorkState::PUBLISHED->value
             ])
             ->get("https://classroom.googleapis.com/v1/courses/{$courseId}/courseWork");
 
@@ -40,7 +41,7 @@ final readonly class GoogleClassroomAssignmentsRepository extends AbstractGoogle
 
         /**
          * @var object{
-         *      classroomId: string,
+         *      id: string,
          *      title: string,
          *      description: string,
          *      materials: array,
@@ -55,17 +56,17 @@ final readonly class GoogleClassroomAssignmentsRepository extends AbstractGoogle
          */
         foreach ($assignmentsData as $assignment) {
             $assignments[] = new AssignmentData(
-                $assignment->classroomId,
+                $assignment->id,
                 $assignment->title,
-                $assignment->description,
-                $assignment->materials,
-                $assignment->state,
+                $assignment->description ?? null,
+                $assignment->materials ?? [],
+                $assignment->state ?? CourseWorkState::DRAFT->value,
                 $assignment->alternateLink,
-                $assignment->maxPoints,
-                $assignment->dueDate,
-                $assignment->dueTime,
+                $assignment->maxPoints ?? null,
+                $assignment->dueDate ?? null,
+                $assignment->dueTime ?? null,
                 $assignment->workType,
-                $assignment->assigneeMode,
+                $assignment->assigneeMode ?? AssigneeMode::ALL_STUDENTS->value,
             );
         }
 
