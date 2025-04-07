@@ -68,7 +68,7 @@ final class WeatherCommand extends Command
                     continue;
                 }
 
-                if ($command === "/$this->name" && in_array($key, $this->hide, true)) {
+                if (str_starts_with($command, "/$this->name") && in_array($key, $this->hide, true)) {
                     continue;
                 }
 
