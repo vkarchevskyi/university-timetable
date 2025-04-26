@@ -27,10 +27,10 @@ final class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             GenerativeModel::class,
-            static fn (): GenerativeModel => (new Client(Config::string('services.google.gemini.api_key')))
+            static fn (): GenerativeModel => new Client(Config::string('services.google.gemini.api_key'))
                 ->generativeModel(Config::string('services.google.gemini.model'))
                 ->withGenerationConfig(
-                    (new GenerationConfig())
+                    new GenerationConfig()
                         ->withTopK(Config::integer('services.google.gemini.top_k'))
                         ->withTopP(Config::float('services.google.gemini.top_p'))
                         ->withTemperature(Config::float('services.google.gemini.temperature'))
@@ -89,7 +89,9 @@ final class AppServiceProvider extends ServiceProvider
      */
     private function configureUrls(): void
     {
-        URL::forceScheme('https');
+        if ($this->app->isProduction()) {
+            URL::forceScheme('https');
+        }
     }
 
     /**
