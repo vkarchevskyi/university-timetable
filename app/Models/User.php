@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Override;
+use App\Enums\Users\UserRole;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Config;
-use Override;
 
 /**
  *
@@ -28,6 +27,10 @@ use Override;
  * @property string|null $google_id
  * @property string|null $google_token
  * @property string|null $google_refresh_token
+ * @property string|null $two_factor_secret
+ * @property string|null $two_factor_recovery_codes
+ * @property string|null $two_factor_confirmed_at
+ * @property UserRole $role
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
@@ -45,10 +48,14 @@ use Override;
  * @method static Builder<static>|User whereName($value)
  * @method static Builder<static>|User wherePassword($value)
  * @method static Builder<static>|User whereRememberToken($value)
+ * @method static Builder<static>|User whereRole($value)
+ * @method static Builder<static>|User whereTwoFactorConfirmedAt($value)
+ * @method static Builder<static>|User whereTwoFactorRecoveryCodes($value)
+ * @method static Builder<static>|User whereTwoFactorSecret($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-final class User extends Authenticatable implements FilamentUser, MustVerifyEmail
+final class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
@@ -66,6 +73,7 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         'google_id',
         'google_token',
         'google_refresh_token',
+        'role',
     ];
 
     /**
@@ -78,9 +86,9 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         'remember_token',
     ];
 
-    public function canAccessPanel(Panel $panel): bool
+    public function canAccessAdminPanel(): bool
     {
-        return $this->email === Config::string('auth.admin_email');
+        return $this->role->isAdmin();
     }
 
     public function scopeGoogleServiceAccount(Builder $query): Builder
@@ -99,6 +107,9 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRole::class,
+            'created_at' => 'immutable_datetime',
+            'updated_at' => 'immutable_datetime',
         ];
     }
 }
