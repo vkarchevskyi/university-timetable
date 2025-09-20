@@ -15,6 +15,7 @@ final readonly class LessonValueObject
         public CarbonImmutable $datetime,
         public LessonOrder $order,
         public string $teacherName,
+        public ?int $roomNumber,
     ) {
     }
 

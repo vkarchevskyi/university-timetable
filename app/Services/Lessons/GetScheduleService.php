@@ -43,6 +43,7 @@ final readonly class GetScheduleService
                             $currentDate->setTimeFromTimeString($lesson->order->getLessonStart()),
                             $lesson->order,
                             $lesson->teacher->name,
+                            $lesson->room_number,
                         )
                     )
             );
@@ -67,7 +68,7 @@ final readonly class GetScheduleService
                 }
 
                 if (is_null($exception->course_id)) {
-                    $specificDayLessons->forget($lessonWithException);
+                    $specificDayLessons->offsetUnset($lessonWithException);
                 } else {
                     $specificDayLessons->put($lessonWithException, $this->createLessonValueObject($exception));
                 }
@@ -91,7 +92,7 @@ final readonly class GetScheduleService
         return Exception::query()
             ->with(['teacher:id,name', 'course:id,name'])
             ->whereBetween('date', [$startDate->utc(), $endDate->utc()])
-            ->get(['id', 'date', 'order', 'teacher_id', 'course_id']);
+            ->get(['id', 'date', 'order', 'teacher_id', 'course_id', 'room_number']);
     }
 
     /**
@@ -101,7 +102,7 @@ final readonly class GetScheduleService
     {
         return Lesson::query()
             ->with(['teacher:id,name', 'course:id,name'])
-            ->get(['id', 'day_of_week', 'order', 'is_numerator', 'teacher_id', 'course_id'])
+            ->get(['id', 'day_of_week', 'order', 'is_numerator', 'teacher_id', 'course_id', 'room_number'])
             ->groupBy(fn (Lesson $lesson): int => $lesson->day_of_week->value);
     }
 
@@ -119,6 +120,7 @@ final readonly class GetScheduleService
             $exception->date->setTimeFromTimeString($exception->order->getLessonStart()),
             $exception->order,
             $teacherName,
+            $exception->room_number,
         );
     }
 }
