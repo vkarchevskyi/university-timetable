@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Config;
 use Override;
 
 /**
- *
- *
  * @property int $id
  * @property string $name
  * @property string $email
@@ -28,6 +26,10 @@ use Override;
  * @property string|null $google_id
  * @property string|null $google_token
  * @property string|null $google_refresh_token
+ * @property string|null $two_factor_secret
+ * @property string|null $two_factor_recovery_codes
+ * @property string|null $two_factor_confirmed_at
+ * @property string $role
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
@@ -45,6 +47,10 @@ use Override;
  * @method static Builder<static>|User whereName($value)
  * @method static Builder<static>|User wherePassword($value)
  * @method static Builder<static>|User whereRememberToken($value)
+ * @method static Builder<static>|User whereRole($value)
+ * @method static Builder<static>|User whereTwoFactorConfirmedAt($value)
+ * @method static Builder<static>|User whereTwoFactorRecoveryCodes($value)
+ * @method static Builder<static>|User whereTwoFactorSecret($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */

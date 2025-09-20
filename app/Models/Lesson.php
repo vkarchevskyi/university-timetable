@@ -12,8 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- *
- *
  * @property int $id
  * @property DayOfWeek $day_of_week
  * @property LessonOrder $order
@@ -22,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property int $teacher_id
  * @property int $course_id
+ * @property int|null $room_number
  * @property-read Course $course
  * @property-read Teacher $teacher
  * @method static \Database\Factories\LessonFactory factory($count = null, $state = [])
@@ -34,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereIsNumerator($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereRoomNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereTeacherId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lesson whereUpdatedAt($value)
  * @mixin \Eloquent

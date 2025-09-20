@@ -11,8 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- *
- *
  * @property int $id
  * @property \Carbon\CarbonImmutable $date
  * @property LessonOrder $order
@@ -20,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property int|null $teacher_id
  * @property int|null $course_id
+ * @property int|null $room_number
  * @property-read Course|null $course
  * @property-read Teacher|null $teacher
  * @method static \Database\Factories\ExceptionFactory factory($count = null, $state = [])
@@ -31,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereRoomNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereTeacherId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Exception whereUpdatedAt($value)
  * @mixin \Eloquent

@@ -7,8 +7,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
- *
  * @property int $id
  * @property int $telegram_user_id
  * @property int $telegram_chat_id
