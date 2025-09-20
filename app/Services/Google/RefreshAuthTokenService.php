@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Actions\Google;
+namespace App\Services\Google;
 
 use App\Models\User;
 use Laravel\Socialite\Two\GoogleProvider;
 use RuntimeException;
 
-final readonly class RefreshAuthTokenAction
+final readonly class RefreshAuthTokenService
 {
     public function __construct(private GoogleProvider $googleProvider)
     {

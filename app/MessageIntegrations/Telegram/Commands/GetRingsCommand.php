@@ -12,12 +12,15 @@ final class GetRingsCommand extends Command
 {
     protected string $name = 'rings';
 
+    protected array $aliases = [
+        'r',
+    ];
+
     protected string $description = 'Отримати розклад дзвінків.';
 
     public function __construct(
         private readonly EscapeCharactersService $escapeCharactersService,
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Actions\Assignments\GoogleClassroom;
+namespace App\Services\Assignments\GoogleClassroom;
 
 use App\Exceptions\Assignments\GoogleClassroom\ApiAuthenticationException;
 use App\Exceptions\Assignments\GoogleClassroom\ApiException;
@@ -11,7 +11,7 @@ use App\Repositories\Assignments\GoogleClassroom\GoogleClassroomCoursesRepositor
 use Illuminate\Http\Client\ConnectionException;
 use JsonException;
 
-final readonly class SyncClassroomCoursesAction
+final readonly class SyncClassroomCoursesService
 {
     public function __construct(private GoogleClassroomCoursesRepository $classroomCoursesRepository)
     {

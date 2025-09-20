@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Actions\Assignments\GoogleClassroom;
+namespace App\Services\Assignments\GoogleClassroom;
 
 use App\Exceptions\Assignments\GoogleClassroom\ApiAuthenticationException;
 use App\Exceptions\Assignments\GoogleClassroom\ApiException;
@@ -13,7 +13,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Http\Client\ConnectionException;
 use JsonException;
 
-final readonly class SyncClassroomAssignmentAction
+final readonly class SyncClassroomAssignmentService
 {
     public function __construct(private GoogleClassroomAssignmentsRepository $classroomAssignmentsRepository)
     {

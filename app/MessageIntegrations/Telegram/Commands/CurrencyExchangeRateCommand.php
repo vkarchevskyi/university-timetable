@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\MessageIntegrations\Telegram\Commands;
 
-use App\Interfaces\Resource\Banks\CurrencyExchangeRateResourceInterface;
-use App\ViewModel\Banks\Monobank\MonobankCurrencyExchangeRatesViewModel;
-use App\ViewModel\Banks\Privatbank\PrivatbankCurrencyExchangeRatesViewModel;
+use App\Resources\Banks\Interfaces\CurrencyExchangeRateResourceInterface;
+use App\Services\Banks\Monobank\RetrieveMonobankCurrencyExchangeRatesService;
+use App\Services\Banks\Privatbank\RetrievePrivatbankCurrencyExchangeRatesService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use kbATeam\MarkdownTable\Table;
@@ -19,8 +19,8 @@ final class CurrencyExchangeRateCommand extends Command
     protected string $description = 'Отримати курс валют';
 
     public function __construct(
-        private readonly MonobankCurrencyExchangeRatesViewModel $monobankCurrencyExchangeRatesViewModel,
-        private readonly PrivatbankCurrencyExchangeRatesViewModel $privatbankCurrencyExchangeRatesViewModel,
+        private readonly RetrieveMonobankCurrencyExchangeRatesService $monobankCurrencyExchangeRatesViewModel,
+        private readonly RetrievePrivatbankCurrencyExchangeRatesService $privatbankCurrencyExchangeRatesViewModel,
     ) {
     }
 

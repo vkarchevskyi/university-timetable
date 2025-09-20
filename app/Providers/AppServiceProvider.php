@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\GoogleProvider;
+use Vkarchevskyi\ExchangeRates\Providers\ExchangeRatesProvider;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -44,6 +45,8 @@ final class AppServiceProvider extends ServiceProvider
 
             return $googleProvider;
         });
+
+        $this->app->register(ExchangeRatesProvider::class);
     }
 
     /**
@@ -64,7 +67,7 @@ final class AppServiceProvider extends ServiceProvider
     private function configureCommands(): void
     {
         DB::prohibitDestructiveCommands(
-            $this->app->isProduction(),
+            $this->app->environment('production'),
         );
     }
 
@@ -89,7 +92,7 @@ final class AppServiceProvider extends ServiceProvider
      */
     private function configureUrls(): void
     {
-        if ($this->app->isProduction()) {
+        if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }
     }

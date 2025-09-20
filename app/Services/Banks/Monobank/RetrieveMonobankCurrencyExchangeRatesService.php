@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\ViewModel\Banks\Monobank;
+namespace App\Services\Banks\Monobank;
 
 use Alcohol\ISO4217;
 use App\DataTransferObjects\Banks\Monobank\CurrencyPair;
@@ -14,7 +14,7 @@ use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
-final readonly class MonobankCurrencyExchangeRatesViewModel
+final readonly class RetrieveMonobankCurrencyExchangeRatesService
 {
     /**
      * @param list<array{0: string, 1: string}> $defaultPairs

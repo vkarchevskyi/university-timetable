@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums\Shared;
 
-use Filament\Support\Contracts\HasLabel;
-
-enum DayOfWeek: int implements HasLabel
+enum DayOfWeek: int
 {
     case MONDAY = 1;
 

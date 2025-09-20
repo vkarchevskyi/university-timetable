@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Resource\Banks\Privatbank;
+namespace App\Resources\Banks\Monobank;
 
-use App\Interfaces\Resource\Banks\CurrencyExchangeRateResourceInterface;
+use App\Resources\Banks\Interfaces\CurrencyExchangeRateResourceInterface;
+use Carbon\CarbonImmutable;
 
-final readonly class PrivatbankCurrencyExchangeRateResource implements CurrencyExchangeRateResourceInterface
+final readonly class MonobankCurrencyExchangeRateResource implements CurrencyExchangeRateResourceInterface
 {
     public function __construct(
         public string $currencyA,
         public string $currencyB,
+        public CarbonImmutable $dateTime,
         public float $rateSell,
         public float $rateBuy,
     ) {

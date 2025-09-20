@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\ViewModel\Banks\Privatbank;
+namespace App\Services\Banks\Privatbank;
 
 use App\DataTransferObjects\Banks\Privatbank\PrivatbankApiData;
 use App\Repositories\Banks\Privatbank\PrivatbankRepository;
@@ -13,7 +13,7 @@ use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
-final readonly class PrivatbankCurrencyExchangeRatesViewModel
+final readonly class RetrievePrivatbankCurrencyExchangeRatesService
 {
     public function __construct(
         private PrivatbankRepository $privatbankRepository,
@@ -53,7 +53,7 @@ final readonly class PrivatbankCurrencyExchangeRatesViewModel
      */
     private function getApiDataAdapterClosure(): Closure
     {
-        return static fn (PrivatbankApiData $apiData): RateResource => new RateResource(
+        return static fn (PrivatbankApiData $apiData): PrivatbankCurrencyExchangeRateResource => new PrivatbankCurrencyExchangeRateResource(
             $apiData->ccy,
             $apiData->baseCcy,
             $apiData->buy,

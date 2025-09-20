@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Interfaces\Resource\Banks;
+namespace App\Resources\Banks\Interfaces;
 
 interface CurrencyExchangeRateResourceInterface
 {

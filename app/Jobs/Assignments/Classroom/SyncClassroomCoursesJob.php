@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Jobs\Assignments\Classroom;
 
-use App\Actions\Assignments\GoogleClassroom\SyncClassroomCoursesAction;
 use App\Exceptions\Assignments\GoogleClassroom\ApiAuthenticationException;
 use App\Jobs\Google\RefreshAuthTokenJob;
+use App\Services\Assignments\GoogleClassroom\SyncClassroomCoursesService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
@@ -45,7 +45,7 @@ final class SyncClassroomCoursesJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(SyncClassroomCoursesAction $syncClassroomCoursesAction): void
+    public function handle(SyncClassroomCoursesService $syncClassroomCoursesAction): void
     {
         try {
             $syncClassroomCoursesAction->handle();

@@ -66,6 +66,8 @@ return [
         ],
     ],
 
+    // DO NOT FORGET THAT YOU'VE REMOVED JAR FROM HERE
+    // AND CACHE TTL
     'monobank' => [
         'jar' => env('MONOBANK_JAR'),
         'base_url' => 'https://api.monobank.ua',
