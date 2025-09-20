@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace App\MessageIntegrations\Telegram\Commands;
 
-use App\MessageIntegrations\Telegram\Formats\Lessons\NameLessonMessageFormat;
-use App\MessageIntegrations\Telegram\Formats\Lessons\LessonsMessageFormatStrategy;
-use App\MessageIntegrations\Telegram\Formats\Lessons\OrderLessonsMessageFormat;
-use App\MessageIntegrations\Telegram\Formats\Lessons\TeacherNameLessonMessageFormat;
-use App\MessageIntegrations\Telegram\Formats\Lessons\TimeLessonsMessageFormat;
+use App\MessageIntegrations\Telegram\Formats\Lessons;
 use App\Services\Lessons\GetScheduleService;
 use App\Services\Lessons\Telegram\ConcatMultipleDaysService;
 use App\Services\Lessons\Telegram\EscapeCharactersService;
@@ -54,7 +50,7 @@ final class GetScheduleCommand extends Command
             ->map(
                 fn (Collection $lessons): string => $lessons
                     ->map(
-                        fn (LessonValueObject $lesson): string => $this->formatLessonMessageService->handle(
+                        fn (LessonValueObject $lesson): string => '>' . $this->formatLessonMessageService->handle(
                             $messageStrategies,
                             $lesson
                         )
@@ -72,22 +68,23 @@ final class GetScheduleCommand extends Command
     }
 
     /**
-     * @return LessonsMessageFormatStrategy[]
+     * @return Lessons\LessonsMessageFormatStrategy[]
      */
     private function getFormatStrategies(string $command): array
     {
         $strategies = [
-            new OrderLessonsMessageFormat(),
+            new Lessons\OrderLessonsMessageFormat(),
         ];
 
         if (str_contains($command, '/st')) {
-            $strategies[] = new TimeLessonsMessageFormat();
+            $strategies[] = new Lessons\TimeLessonsMessageFormat();
         }
 
-        $strategies[] = new NameLessonMessageFormat();
+        $strategies[] = new Lessons\NameLessonMessageFormat();
+        $strategies[] = new Lessons\RoomNumberMessageFormat();
 
         if (str_contains($command, '/stt')) {
-            $strategies[] = new TeacherNameLessonMessageFormat();
+            $strategies[] = new Lessons\TeacherNameLessonMessageFormat();
         }
 
         return $strategies;
