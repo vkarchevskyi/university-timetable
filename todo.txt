@@ -1,0 +1,5 @@
+1. tests
+2. https://github.com/discord-php/DiscordPHP
+3. landing page
+4. create an API for the landing page with rate limiting
+
