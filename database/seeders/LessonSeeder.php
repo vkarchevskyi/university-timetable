@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Teacher;
 use Illuminate\Database\Seeder;
 
 final class LessonSeeder extends Seeder
@@ -14,121 +16,149 @@ final class LessonSeeder extends Seeder
      */
     public function run(): void
     {
+        $teachers = Teacher::query()->pluck('id', 'name');
+        $courses = Course::query()->pluck('id', 'name');
+
         $lessons = [
             [
-                'course_id' => 6,
-                'day_of_week' => 1,
-                'order' => 1,
-                'teacher_id' => 5,
-            ],
-            [
-                'course_id' => 6,
-                'day_of_week' => 1,
-                'order' => 2,
-                'teacher_id' => 5,
-            ],
-            [
-                'course_id' => 1,
-                'day_of_week' => 1,
-                'order' => 3,
-                'teacher_id' => 1,
-            ],
-            [
-                'course_id' => 1,
+                'course_id' => $courses->get('Віртуальна та доповнена реальність'),
                 'day_of_week' => 1,
                 'order' => 4,
-                'teacher_id' => 1,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Ізвалов О.В.'),
+                'room_number' => 2,
+            ],
+            [
+                'course_id' => $courses->get('Управління IT-проектами'),
+                'day_of_week' => 1,
+                'order' => 5,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Сурков К.Ю.'),
+                'room_number' => 10,
+            ],
+            [
+                'course_id' => $courses->get('Програмування веб-додатків LARAVEL'),
+                'day_of_week' => 1,
+                'order' => 6,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Зєнов Д.О.'),
+                'room_number' => 10,
             ],
 
             [
-                'course_id' => 3,
-                'day_of_week' => 2,
-                'order' => 2,
-                'teacher_id' => 2,
-            ],
-            [
-                'course_id' => 2,
-                'day_of_week' => 2,
-                'order' => 3,
-                'teacher_id' => 1,
-            ],
-            [
-                'course_id' => 1,
+                'course_id' => $courses->get('Системний аналіз'),
                 'day_of_week' => 2,
                 'order' => 4,
-                'teacher_id' => 1,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Бондар О.П.'),
+                'room_number' => 9,
             ],
             [
-                'course_id' => 1,
+                'course_id' => $courses->get('Розробка мобільних додатків'),
                 'day_of_week' => 2,
                 'order' => 5,
-                'is_numerator' => true,
-                'teacher_id' => 1,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Ізвалов О.В.'),
+                'room_number' => 2,
+            ],
+            [
+                'course_id' => $courses->get('Віртуальна та доповнена реальність'),
+                'day_of_week' => 2,
+                'order' => 6,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Ізвалов О.В.'),
+                'room_number' => 2,
             ],
 
             [
-                'course_id' => 4,
-                'day_of_week' => 3,
-                'order' => 3,
-                'teacher_id' => 3,
-            ],
-            [
-                'course_id' => 4,
+                'course_id' => $courses->get('Паралельні та розподіленні обчислення'),
                 'day_of_week' => 3,
                 'order' => 4,
-                'teacher_id' => 3,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Паращук С.Д.'),
+                'room_number' => 17,
             ],
             [
-                'course_id' => 2,
+                'course_id' => $courses->get('Управління IT-проектами'),
                 'day_of_week' => 3,
                 'order' => 5,
-                'teacher_id' => 1,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Сурков К.Ю.'),
+                'room_number' => 2,
+            ],
+            [
+                'course_id' => $courses->get('Паралельні та розподіленні обчислення'),
+                'day_of_week' => 3,
+                'order' => 6,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Паращук С.Д.'),
+                'room_number' => 6,
             ],
 
             [
-                'course_id' => 5,
+                'course_id' => $courses->get('Розробка мобільних додатків'),
                 'day_of_week' => 4,
-                'order' => 1,
-                'teacher_id' => 4,
+                'order' => 4,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Ізвалов О.В.'),
+                'room_number' => 2,
             ],
             [
-                'course_id' => 2,
+                'course_id' => $courses->get('Програмування веб-додатків LARAVEL'),
                 'day_of_week' => 4,
-                'order' => 2,
-                'teacher_id' => 1,
-            ],
-            [
-                'course_id' => 5,
-                'day_of_week' => 4,
-                'order' => 3,
+                'order' => 5,
                 'is_numerator' => true,
-                'teacher_id' => 4,
+                'teacher_id' => $teachers->get('Зєнов Д.О.'),
+                'room_number' => 16,
             ],
             [
-                'course_id' => 3,
+                'course_id' => $courses->get('Розробка мобільних додатків'),
                 'day_of_week' => 4,
-                'order' => 3,
+                'order' => 5,
                 'is_numerator' => false,
-                'teacher_id' => 2,
+                'teacher_id' => $teachers->get('Ізвалов О.В.'),
+                'room_number' => 2,
             ],
             [
-                'course_id' => 3,
+                'course_id' => $courses->get('Програмування веб-додатків LARAVEL'),
                 'day_of_week' => 4,
-                'order' => 4,
-                'teacher_id' => 2,
+                'order' => 6,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Зєнов Д.О.'),
+                'room_number' => 16,
             ],
 
             [
-                'course_id' => 6,
+                'course_id' => $courses->get('Системний аналіз'),
                 'day_of_week' => 5,
                 'order' => 1,
-                'teacher_id' => 5,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Бондар О.П.'),
+                'room_number' => 9,
             ],
             [
-                'course_id' => 6,
+                'course_id' => $courses->get('Проектування інформаційних систем'),
                 'day_of_week' => 5,
                 'order' => 2,
-                'teacher_id' => 5,
+                'is_numerator' => null,
+                'teacher_id' => $teachers->get('Неділько В.М.'),
+                'room_number' => 9,
+            ],
+            [
+                'course_id' => $courses->get('Проектування інформаційних систем'),
+                'day_of_week' => 5,
+                'order' => 3,
+                'is_numerator' => true,
+                'teacher_id' => $teachers->get('Неділько В.М.'),
+                'room_number' => 9,
+            ],
+            [
+                'course_id' => $courses->get('Віртуальна та доповнена реальність'),
+                'day_of_week' => 5,
+                'order' => 4,
+                'is_numerator' => true,
+                'teacher_id' => $teachers->get('Ізвалов О.В.'),
+                'room_number' => 9,
             ],
         ];
 

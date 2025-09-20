@@ -45,6 +45,7 @@ final class Exception extends Model
         'order',
         'teacher_id',
         'course_id',
+        'room_number',
     ];
 
     protected $casts = [

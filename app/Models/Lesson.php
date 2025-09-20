@@ -49,6 +49,7 @@ final class Lesson extends Model
         'is_numerator',
         'teacher_id',
         'course_id',
+        'room_number',
     ];
 
     protected $casts = [
