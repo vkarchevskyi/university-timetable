@@ -31,6 +31,10 @@ final class ExceptionResource extends Resource
                     ->numeric(),
                 Forms\Components\Select::make('teacher_id')
                     ->relationship('teacher', 'name'),
+                Forms\Components\TextInput::make('room_number')
+                    ->integer()
+                    ->minValue(1)
+                    ->maxValue(99),
             ]);
     }
 

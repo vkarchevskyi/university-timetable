@@ -36,6 +36,10 @@ final class LessonResource extends Resource
                 Forms\Components\Select::make('teacher_id')
                     ->relationship('teacher', 'name')
                     ->required(),
+                Forms\Components\TextInput::make('room_number')
+                    ->integer()
+                    ->minValue(1)
+                    ->maxValue(99),
             ]);
     }
 
