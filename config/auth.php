@@ -113,6 +113,4 @@ return [
     */
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
-
-    'admin_email' => env('ADMIN_PANEL_USER_EMAIL'),
 ];
