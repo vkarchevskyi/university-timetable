@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Lessons;
 
+use App\Enums\Lessons\WeekType;
 use App\Models\Exception;
 use App\Models\Lesson;
 use App\ValueObjects\LessonValueObject;
@@ -34,8 +35,8 @@ final readonly class GetScheduleService
             $specificDayLessons = new Collection(
                 ($lessons->get($currentDate->dayOfWeekIso) ?? new Collection())
                     ->filter(
-                        fn (Lesson $lesson): bool => is_null($lesson->is_numerator)
-                            || $lesson->is_numerator === $this->isNumerator->handle($currentDate)
+                        fn (Lesson $lesson): bool => $lesson->week_type === WeekType::BOTH
+                            || $lesson->week_type->isNumerator() === $this->isNumerator->handle($currentDate)
                     )
                     ->map(
                         fn (Lesson $lesson): LessonValueObject => new LessonValueObject(
@@ -102,7 +103,7 @@ final readonly class GetScheduleService
     {
         return Lesson::query()
             ->with(['teacher:id,name', 'course:id,name'])
-            ->get(['id', 'day_of_week', 'order', 'is_numerator', 'teacher_id', 'course_id', 'room_number'])
+            ->get(['id', 'day_of_week', 'order', 'week_type', 'teacher_id', 'course_id', 'room_number'])
             ->groupBy(fn (Lesson $lesson): int => $lesson->day_of_week->value);
     }
 

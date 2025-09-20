@@ -32,7 +32,7 @@ final class ExceptionSeeder extends Seeder
         //$exceptions = [];
 
         //foreach ($exceptions as $exception) {
-            //Exception::factory()->state($exception)->create();
+        //Exception::factory()->state($exception)->create();
         //}
     }
 }
