@@ -16,6 +16,8 @@ enum LessonOrder: int
 
     case FIFTH = 5;
 
+    case SIXTH = 6;
+
     public function getLessonStart(): string
     {
         return match ($this) {
@@ -24,6 +26,7 @@ enum LessonOrder: int
             self::THIRD => '11:40',
             self::FOURTH => '13:10',
             self::FIFTH => '14:40',
+            self::SIXTH => '16:10',
         };
     }
 
@@ -35,6 +38,7 @@ enum LessonOrder: int
             self::THIRD => '13:00',
             self::FOURTH => '14:30',
             self::FIFTH => '16:00',
+            self::SIXTH => '17:30',
         };
     }
 
@@ -46,6 +50,7 @@ enum LessonOrder: int
             self::THIRD => "\u{33}\u{FE0F}\u{20E3}",
             self::FOURTH => "\u{34}\u{FE0F}\u{20E3}",
             self::FIFTH => "\u{35}\u{FE0F}\u{20E3}",
+            self::SIXTH => "\u{36}\u{FE0F}\u{20E3}",
         };
     }
 }
