@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Enums\Lessons\WeekType;
 use App\Enums\Shared\DayOfWeek;
 use App\Filament\Resources\LessonResource\Pages;
 use App\Models\Lesson;
@@ -32,7 +33,9 @@ final class LessonResource extends Resource
                 Forms\Components\TextInput::make('order')
                     ->required()
                     ->numeric(),
-                Forms\Components\Toggle::make('is_numerator'),
+                Forms\Components\Select::make('week_type')
+                    ->enum(WeekType::class)
+                    ->required(),
                 Forms\Components\Select::make('teacher_id')
                     ->relationship('teacher', 'name')
                     ->required(),
@@ -50,12 +53,13 @@ final class LessonResource extends Resource
                 Tables\Columns\TextColumn::make('course.name')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('day_of_week')
+                Tables\Columns\TextColumn::make('teacher.name')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('room_number')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('order')
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_numerator')
-                    ->boolean(),
+                Tables\Columns\TextColumn::make('week_type'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -64,9 +68,8 @@ final class LessonResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('teacher.name')
-                    ->sortable(),
             ])
+            ->defaultGroup('day_of_week')
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
