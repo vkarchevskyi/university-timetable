@@ -22,14 +22,17 @@ final class TeacherSeeder extends Seeder
                 'name' => 'Паращук С.Д.',
             ],
             [
-                'name' => 'Максимова О.П.',
+                'name' => 'Зєнов Д.О.',
             ],
             [
                 'name' => 'Сурков К.Ю.',
             ],
             [
-                'name' => 'Васильковська Ж.В.',
-            ]
+                'name' => 'Бондар О.П.',
+            ],
+            [
+                'name' => 'Неділько В.М.',
+            ],
         ];
 
         foreach ($teachers as $teacher) {
