@@ -23,6 +23,7 @@ final class ExceptionFactory extends Factory
             'order' => $this->faker->randomElement([1, 2, 3, 4, 5]),
             'teacher_id' => null,
             'course_id' => null,
+            'room_number' => 1,
         ];
     }
 }

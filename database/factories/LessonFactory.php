@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Models\Course;
 use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,10 +21,12 @@ final class LessonFactory extends Factory
     public function definition(): array
     {
         return [
+            'course_id' => Course::factory(),
             'teacher_id' => Teacher::factory(),
             'day_of_week' => $this->faker->randomElement([0, 1, 2, 3, 4, 5, 6]),
             'order' => $this->faker->randomElement([1, 2, 3, 4, 5]),
             'is_numerator' => null,
+            'room_number' => 1,
         ];
     }
 }
