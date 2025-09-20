@@ -34,6 +34,7 @@ final class LessonResource extends Resource
                     ->required()
                     ->numeric(),
                 Forms\Components\Select::make('week_type')
+                    ->options(WeekType::class)
                     ->enum(WeekType::class)
                     ->required(),
                 Forms\Components\Select::make('teacher_id')
