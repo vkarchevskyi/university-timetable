@@ -53,6 +53,7 @@ final class Exception extends Model
         'order' => LessonOrder::class,
         'teacher_id' => 'integer',
         'course_id' => 'integer',
+        'room_number' => 'integer',
     ];
 
     /**

@@ -59,6 +59,7 @@ final class Lesson extends Model
         'day_of_week' => DayOfWeek::class,
         'teacher_id' => 'integer',
         'course_id' => 'integer',
+        'room_number' => 'integer',
     ];
 
     /**
