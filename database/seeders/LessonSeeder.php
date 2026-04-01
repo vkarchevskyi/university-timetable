@@ -49,14 +49,6 @@ final class LessonSeeder extends Seeder
             [
                 'course_id' => $courses->get('Комп\'ютерна анімація'),
                 'day_of_week' => 2,
-                'order' => 4,
-                'week_type' => WeekType::BOTH,
-                'teacher_id' => $teachers->get('Васильєва В.М.'),
-                'room_number' => 9,
-            ],
-            [
-                'course_id' => $courses->get('Комп\'ютерна анімація'),
-                'day_of_week' => 2,
                 'order' => 5,
                 'week_type' => WeekType::BOTH,
                 'teacher_id' => $teachers->get('Васильєва В.М.'),
@@ -96,6 +88,14 @@ final class LessonSeeder extends Seeder
                 'room_number' => 10,
             ],
 
+            [
+                'course_id' => $courses->get('Комп\'ютерна анімація'),
+                'day_of_week' => 4,
+                'order' => 2,
+                'week_type' => WeekType::BOTH,
+                'teacher_id' => $teachers->get('Васильєва В.М.'),
+                'room_number' => 2,
+            ],
             [
                 'course_id' => $courses->get('Технології розробки стартапів'),
                 'day_of_week' => 4,
